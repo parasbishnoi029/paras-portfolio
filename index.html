@@ -403,6 +403,7 @@
                 
                 <!-- Right Side 3D Avatar Area -->
                 <div class="lg:col-span-5 relative w-full h-[500px] flex justify-center items-center perspective-1200 hidden lg:flex">
+                    <!-- The 3D Avatar Card using Profile.jpg[cite: 1] -->
                     <div id="hero-avatar" class="relative w-full max-w-sm aspect-[3/4] rounded-[2rem] glass-3d p-2 interactive-3d hover-target z-20 shadow-glass-hover">
                         <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative pop-out">
                             <img src="Profile.jpg" onerror="this.src='https://kommodo.ai/i/q60CtUmf3KtyG1A4Gzq5'" alt="Paras 3D Avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
@@ -849,7 +850,7 @@
                                     <span class="bg-white/5 border border-white/10 px-3 py-1.5 rounded-md">Supabase</span>
                                     <span class="bg-white/5 border border-white/10 px-3 py-1.5 rounded-md">Streamlit</span>
                                 </div>
-
+ 
                                 <!-- Action Links Flex Container -->
                                 <div class="flex flex-wrap items-center gap-6">
                                     <a href="https://github.com/parasbishnoi029" target="_blank" class="inline-flex items-center space-x-2 text-sm font-bold tracking-widest uppercase text-white hover:text-primary transition-colors hover-target">
@@ -867,17 +868,12 @@
                         
                         <!-- Image Side -->
                         <div class="lg:col-span-5 order-1 lg:order-2 interactive-3d h-full flex justify-center items-center">
-   
-                                  <!-- Changed width constraints and added aspect-[9/19.5] to match standard smartphone ratios -->
-                          <div class="w-full max-w-[280px] md:max-w-[320px] aspect-[9/19.5] rounded-[2rem] overflow-hidden border border-white/10 shadow-glass relative pop-out-extreme">
-                                         <!-- Kept object-cover to gracefully fill the phone shape wrapper -->
-                                 <img src="AIResumeanalyser.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="App Interface">
-        
-                                  <!-- Subtle shadow gradient at the bottom so the tag remains highly legible -->
-                                  <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/10 to-transparent opacity-80 pointer-events-none"></div>
-                                  <div class="absolute bottom-6 right-6">
-                                        <span class="bg-black/50 backdrop-blur border border-white/20 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest text-white uppercase flex items-center">
-                                          <div class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div> Live System
+                            <div class="w-full max-w-[280px] md:max-w-[320px] aspect-[9/19.5] rounded-[2rem] overflow-hidden border border-white/10 shadow-glass relative pop-out-extreme">
+                                <img src="AIResumeanalyser.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="App Interface">
+                                <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/10 to-transparent opacity-80 pointer-events-none"></div>
+                                <div class="absolute bottom-6 right-6">
+                                    <span class="bg-black/50 backdrop-blur border border-white/20 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest text-white uppercase flex items-center">
+                                        <div class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div> Live System
                                     </span>
                                 </div>
                             </div>
@@ -952,14 +948,25 @@
                     </div>
  
                     <div class="glass-3d overflow-hidden rounded-3xl md:col-span-2 interactive-3d hover-target relative">
-                        <video autoplay loop muted playsinline class="w-full h-80 object-cover">
-                            <source src="assets/video/demo.mp4" type="video/mp4">
-                        </video>
-                        <div class="absolute inset-0 bg-gradient-to-t from-darkBg/60 to-transparent pointer-events-none"></div>
-                        <div class="absolute bottom-6 left-6">
-                            <span class="bg-black/50 backdrop-blur border border-white/20 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest text-white uppercase flex items-center">
-                                <div class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></div> Live Demo
-                            </span>
+                        <!-- Custom Video Player Container Configured for Mobile Demos -->
+                        <div class="w-full h-full min-h-[320px] bg-black/40 flex items-center justify-center relative overflow-hidden group/vid">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80 group-hover/vid:scale-105 transition-transform duration-700">
+                                <source src="assets/video/demo.mp4" type="video/mp4">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-code-running-on-a-computer-screen-animated-pattern-35025-large.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/20 to-transparent pointer-events-none"></div>
+                            
+                            <!-- Overlay Video Meta Frame UI -->
+                            <div class="absolute top-4 left-4 flex items-center space-x-2 bg-black/60 backdrop-blur px-3 py-1 rounded-md border border-white/10 text-[10px] font-mono text-gray-400 tracking-wider">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                                <span>stream_analyzer.log</span>
+                            </div>
+                            
+                            <div class="absolute bottom-6 left-6">
+                                <span class="bg-black/50 backdrop-blur border border-white/20 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest text-white uppercase flex items-center shadow-neon-primary">
+                                    <i class="fa-solid fa-play mr-2 text-primary animate-pulse"></i> Live Analytics Preview
+                                </span>
+                            </div>
                         </div>
                     </div>
  
@@ -1021,14 +1028,13 @@
                             </div>
                             <div class="flex gap-1 overflow-x-hidden">
                                 <script>
-                                    // Generate a massive grid of realistic looking github heatmap squares
                                     document.write(Array.from({length: 120}).map(() => {
                                         const val = Math.random();
-                                        let cls = 'bg-white/5'; // empty
-                                        if(val > 0.90) cls = 'bg-[#39d353]';      // heavy
-                                        else if(val > 0.70) cls = 'bg-[#26a641]'; // medium-high
-                                        else if(val > 0.50) cls = 'bg-[#006d32]'; // medium
-                                        else if(val > 0.30) cls = 'bg-[#0e4429]'; // light
+                                        let cls = 'bg-white/5'; 
+                                        if(val > 0.90) cls = 'bg-[#39d353]';      
+                                        else if(val > 0.70) cls = 'bg-[#26a641]'; 
+                                        else if(val > 0.50) cls = 'bg-[#006d32]'; 
+                                        else if(val > 0.30) cls = 'bg-[#0e4429]'; 
                                         return `<div class="w-3 h-3 md:w-4 md:h-4 rounded-sm shrink-0 ${cls} transition-colors duration-300 hover:bg-white cursor-pointer"></div>`;
                                     }).join(''));
                                 </script>
@@ -1264,7 +1270,6 @@
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorRing = document.querySelector('.cursor-ring');
         
-        // Smooth cursor follow
         window.addEventListener('mousemove', (e) => {
             cursorDot.style.left = `${e.clientX}px`; 
             cursorDot.style.top = `${e.clientY}px`;
@@ -1274,7 +1279,6 @@
             }, { duration: 100, fill: "forwards" });
         });
         
-        // Cursor hover states for interactive elements
         document.querySelectorAll('a, button, .hover-target').forEach(el => {
             el.addEventListener('mouseenter', () => { 
                 cursorRing.style.width = '60px'; 
@@ -1371,6 +1375,21 @@
         });
         const dust = new THREE.Points(pGeo, pMat);
         scene.add(dust);
+
+        // --- 3C. THE 3D HOLOGRAPHIC AVATAR BACKGROUND CORE ---
+        const avatar3DGroup = new THREE.Group();
+        const coreGeo = new THREE.IcosahedronGeometry(4, 2);
+        const coreMat = new THREE.MeshStandardMaterial({ color: 0x00F2FE, wireframe: true, transparent: true, opacity: 0.6 });
+        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        
+        const outerHaloGeo = new THREE.IcosahedronGeometry(5.5, 3);
+        const outerHaloMat = new THREE.PointsMaterial({ size: 0.08, color: 0x9D4EDD, transparent: true, opacity: 0.4 });
+        const outerHaloMesh = new THREE.Points(outerHaloGeo, outerHaloMat);
+        
+        avatar3DGroup.add(coreMesh);
+        avatar3DGroup.add(outerHaloMesh);
+        avatar3DGroup.position.set(12, 0, -10); // Placed deep behind the vertical card spot
+        scene.add(avatar3DGroup);
  
         // --- 4. PRELOADER & INITIAL GSAP ENTRANCE ANIMATIONS ---
         gsap.registerPlugin(ScrollTrigger);
@@ -1462,6 +1481,11 @@
  
             terrain.position.z = (t * 5) % 20 - 50;
             dust.rotation.y = t * 0.02;
+            
+            // Spin background abstract core avatar
+            coreMesh.rotation.x = t * 0.4;
+            coreMesh.rotation.y = t * 0.5;
+            outerHaloMesh.rotation.z = -t * 0.15;
  
             targetX = mouseX * 0.005;
             targetY = mouseY * 0.005;
