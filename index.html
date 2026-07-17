@@ -1,6 +1,6 @@
 <!-- 
   =============================================================================
-  PARASFOLIO - ELITE ARCHITECT EDITION v3.0
+  PARASFOLIO - ELITE ARCHITECT EDITION v4.0 (ULTIMATE BUILD)
   =============================================================================
   Author: Paras Bishnoi
   Role: Applied AI & Data Science Architect
@@ -8,9 +8,9 @@
   Architecture: Single Page Application (SPA), Continuous 3D Flight
   Tech Stack: HTML5, Tailwind CSS, GSAP, Three.js, Custom GLSL Shaders
   =============================================================================
-  SECURITY NOTICE: 
-  This source code is protected. Advanced DOM locking and anti-debugging 
-  measures are initialized on runtime. 
+  SECURITY & SYSTEM NOTICE: 
+  This source code features advanced DOM locking, anti-debugging, and custom 
+  WebGL rendering pipelines. Ensure hardware acceleration is enabled.
   =============================================================================
 -->
 <!DOCTYPE html>
@@ -19,18 +19,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- Security Headers -->
+    <!-- ========================================== -->
+    <!-- SECURITY HEADERS                           -->
+    <!-- ========================================== -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     
-    <!-- SEO & Metadata -->
+    <!-- ========================================== -->
+    <!-- SEO & METADATA                             -->
+    <!-- ========================================== -->
     <meta name="keywords" content="Parasfolio, Paras Bishnoi, IIT Jodhpur, AI, Data Science, Machine Learning, Android, Kotlin, Portfolio, Neural Networks, Deep Learning, MLOps, NLP">
     <meta name="author" content="Paras Bishnoi">
     <meta name="robots" content="index, follow">
     <meta name="description" content="Paras - Applied AI & Data Science Architect. Immersive 3D Portfolio showcasing production-grade machine learning models and scalable software infrastructures.">
     
-    <!-- Open Graph / Social Media -->
+    <!-- ========================================== -->
+    <!-- OPEN GRAPH / SOCIAL MEDIA                  -->
+    <!-- ========================================== -->
     <meta property="og:title" content="PARASFOLIO | Applied AI & Data Architect">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parasbishnoi029.github.io/parasfolio/">
@@ -76,15 +82,16 @@
                     boxShadow: {
                         'glass': '0 30px 60px rgba(0, 0, 0, 0.6)',
                         'glass-hover': '0 40px 80px rgba(0, 242, 254, 0.2)',
-                        'neon-primary': '0 0 20px rgba(0, 242, 254, 0.6)',
-                        'neon-secondary': '0 0 20px rgba(157, 78, 221, 0.6)',
-                        'neon-accent': '0 0 20px rgba(74, 222, 128, 0.6)'
+                        'neon-primary': '0 0 30px rgba(0, 242, 254, 0.4)',
+                        'neon-secondary': '0 0 30px rgba(157, 78, 221, 0.4)',
+                        'neon-accent': '0 0 30px rgba(74, 222, 128, 0.4)'
                     },
                     animation: {
                         'spin-slow': 'spin 20s linear infinite',
-                        'spin-reverse': 'spin 25s linear infinite reverse',
+                        'spin-reverse': 'spin 30s linear infinite reverse',
                         'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
                         'glitch': 'glitch 1s linear infinite',
                         'terminal-blink': 'blink 1s step-end infinite'
                     },
@@ -116,25 +123,21 @@
     <!-- EXTERNAL LIBRARIES (GSAP & THREE.JS)       -->
     <!-- ========================================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- GLTFLoader included for future 3D model expansion -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <!-- Simplex Noise for procedural shader generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
  
     <!-- ========================================== -->
-    <!-- CUSTOM GLSL SHADERS FOR 3D NEBULA BACKGROUND-->
+    <!-- CUSTOM GLSL SHADERS FOR 3D NEBULA          -->
     <!-- ========================================== -->
     <script type="x-shader/x-vertex" id="vertexShader">
-        // Advanced Vertex Shader for Neural Nebula
+        // Advanced Vertex Shader for Neural Nebula Displacement
         varying vec2 vUv;
         varying vec3 vPosition;
         uniform float uTime;
         
-        // Simplex 3D Noise function for vertex displacement
+        // Simplex 3D Noise function for procedural vertex displacement
         vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
         vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
         vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -181,40 +184,38 @@
         void main() {
             vUv = uv;
             vPosition = position;
-            
             // Apply complex noise displacement based on time and position
-            float noise = snoise(vec3(position.x * 0.05, position.y * 0.05, uTime * 0.2));
-            vec3 newPosition = position + normal * noise * 5.0;
-            
+            float noise = snoise(vec3(position.x * 0.03, position.y * 0.03, uTime * 0.15));
+            vec3 newPosition = position + normal * noise * 8.0;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
         }
     </script>
 
     <script type="x-shader/x-fragment" id="fragmentShader">
-        // Advanced Fragment Shader for Neural Nebula
+        // Advanced Fragment Shader for Neural Nebula Colors
         varying vec2 vUv;
         varying vec3 vPosition;
         uniform float uTime;
-        uniform vec3 uColor1; // Primary
-        uniform vec3 uColor2; // Secondary
-        uniform vec2 uMouse;  // Interactive lighting
+        uniform vec3 uColor1; 
+        uniform vec3 uColor2; 
+        uniform vec2 uMouse;  
         
         void main() {
-            // Distance from center to create vignette
+            // Distance from center to create vignette fade
             float dist = distance(vUv, vec2(0.5));
             
             // Dynamic color mixing based on position and time
-            float mixValue = (sin(vPosition.x * 0.1 + uTime) + cos(vPosition.y * 0.1 - uTime)) * 0.5 + 0.5;
+            float mixValue = (sin(vPosition.x * 0.05 + uTime * 0.5) + cos(vPosition.y * 0.05 - uTime * 0.5)) * 0.5 + 0.5;
             vec3 color = mix(uColor1, uColor2, mixValue);
             
-            // Add interactive mouse glow
+            // Add interactive mouse glow (Simulated light source)
             vec2 normalizedMouse = uMouse * 0.5 + 0.5;
             float mouseDist = distance(vUv, normalizedMouse);
-            float glow = 0.05 / (mouseDist + 0.01);
-            color += vec3(glow * 0.5, glow * 0.8, glow); // Cyan-ish glow
+            float glow = 0.08 / (mouseDist + 0.05);
+            color += vec3(glow * 0.4, glow * 0.8, glow); // Cyan-ish glow injection
             
-            // Fade out edges
-            float alpha = smoothstep(0.8, 0.2, dist) * 0.6;
+            // Fade out edges smoothly
+            float alpha = smoothstep(0.8, 0.1, dist) * 0.35;
             
             gl_FragColor = vec4(color, alpha);
         }
@@ -239,31 +240,15 @@
  
         /* Cinematic Noise Overlay */
         .noise { 
-            position: fixed; 
-            inset: 0; 
-            z-index: 900; 
-            pointer-events: none; 
-            opacity: 0.03; 
+            position: fixed; inset: 0; z-index: 900; pointer-events: none; opacity: 0.03; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); 
         }
  
         /* Fixed 3D Canvas */
-        #webgl-canvas { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh; 
-            z-index: 0; 
-            pointer-events: none; 
-        }
+        #webgl-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
         
         /* Main Scrolling Container */
-        #scroll-container { 
-            position: relative; 
-            z-index: 10; 
-            perspective: 1200px; 
-        }
+        #scroll-container { position: relative; z-index: 10; perspective: 1500px; }
  
         /* Typography Utilities */
         .text-gradient { 
@@ -275,19 +260,11 @@
         
         .text-gradient-secondary {
             background: linear-gradient(135deg, #9D4EDD 0%, #4ADE80 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
         }
  
         /* Section Formatting */
-        section { 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            position: relative; 
-            padding: 180px 5%; 
-        }
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 200px 5%; }
  
         /* ========================================== */
         /* IN-CONTEXT CSS 3D GLASSMORPHISM            */
@@ -311,9 +288,9 @@
         }
         
         /* 3D Pop-out Depth Classes */
-        .pop-out { transform: translateZ(40px); transition: transform 0.4s ease; transform-style: preserve-3d; }
-        .pop-out-extreme { transform: translateZ(90px); transition: transform 0.4s ease; transform-style: preserve-3d; }
-        .pop-out-subtle { transform: translateZ(20px); transition: transform 0.4s ease; transform-style: preserve-3d; }
+        .pop-out { transform: translateZ(50px); transition: transform 0.4s ease; transform-style: preserve-3d; }
+        .pop-out-extreme { transform: translateZ(100px); transition: transform 0.4s ease; transform-style: preserve-3d; }
+        .pop-out-subtle { transform: translateZ(25px); transition: transform 0.4s ease; transform-style: preserve-3d; }
 
         /* Custom Cursor */
         .cursor-dot { 
@@ -339,16 +316,14 @@
         
         #boot-sequence {
             position: absolute; top: 20px; left: 20px; width: 100%; height: 100%;
-            color: #4ADE80; font-size: 11px; line-height: 1.4; opacity: 0.7;
+            color: #4ADE80; font-size: 11px; line-height: 1.5; opacity: 0.8;
             text-align: left; text-shadow: 0 0 5px #4ADE80; z-index: 1; pointer-events: none;
         }
 
         .loader-center { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; }
         
-        .loader-glitch { position: relative; font-size: 5rem; letter-spacing: -0.05em; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: white; }
-        .loader-glitch::before, .loader-glitch::after {
-            content: "PARASFOLIO"; position: absolute; top: 0; left: 0; opacity: 0.8;
-        }
+        .loader-glitch { position: relative; font-size: 5rem; letter-spacing: -0.05em; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: white; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .loader-glitch::before, .loader-glitch::after { content: "PARASFOLIO"; position: absolute; top: 0; left: 0; opacity: 0.8; }
         .loader-glitch::before { color: #00F2FE; z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
         .loader-glitch::after { color: #9D4EDD; z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse; }
  
@@ -392,8 +367,11 @@
         }
         .nav-link:hover::after { width: 100%; }
 
+        /* Orbital rings */
+        .orbital-ring { position: absolute; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+
         /* Security Blur (for anti-inspect) */
-        .security-blur { filter: blur(10px) brightness(0.5); pointer-events: none; }
+        .security-blur { filter: blur(15px) brightness(0.2); pointer-events: none; }
         #security-warning { display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(2,2,3,0.95); flex-direction: column; align-items: center; justify-content: center; font-family: 'Fira Code', monospace; }
         #security-warning h1 { color: #EF4444; font-size: 3rem; margin-bottom: 1rem; text-shadow: 0 0 20px #EF4444; }
         #security-warning p { color: #fff; font-size: 1.2rem; }
@@ -410,10 +388,7 @@
         <p class="mt-8 text-gray-500 text-sm">Please close the inspector to return to the interface.</p>
     </div>
 
-    <!-- Decorative Noise Overlay -->
     <div class="noise"></div>
-    
-    <!-- Custom Cursor -->
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-ring hidden md:block"></div>
  
@@ -427,7 +402,7 @@
             <h1 class="loader-glitch font-display text-5xl md:text-7xl font-bold tracking-tighter text-white mb-6">
                 PARAS<span class="text-primary">FOLIO</span>
             </h1>
-            <div class="text-xs font-mono tracking-[0.5em] text-primary uppercase mb-8 flex items-center bg-primary/10 px-4 py-2 rounded-full border border-primary/30">
+            <div class="text-xs font-mono tracking-[0.5em] text-primary uppercase mb-8 flex items-center bg-primary/10 px-4 py-2 rounded-full border border-primary/30 shadow-neon-primary">
                 <i class="fa-solid fa-microchip fa-spin text-primary mr-3"></i>
                 <span id="loading-text">Compiling Neural Architecture...</span>
             </div>
@@ -438,8 +413,8 @@
                     <span>Mem_Alloc</span>
                     <span id="loading-percentage">0.00%</span>
                 </div>
-                <div class="w-full h-[2px] bg-white/10 relative overflow-hidden">
-                    <div id="load-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary via-primary to-white w-0 shadow-neon-primary"></div>
+                <div class="w-full h-[2px] bg-white/10 relative overflow-hidden rounded-full">
+                    <div id="load-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary via-primary to-white w-0 shadow-neon-primary rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -453,9 +428,9 @@
     <!-- ========================================== -->
     <!-- 3. NAVIGATION HEADER                       -->
     <!-- ========================================== -->
-    <nav class="fixed top-0 w-full z-50 px-8 py-6 mix-blend-difference flex justify-between items-center pointer-events-auto">
+    <nav class="fixed top-0 w-full z-50 px-8 py-6 bg-gradient-to-b from-darkBg/90 to-transparent flex justify-between items-center pointer-events-auto backdrop-blur-sm border-b border-white/5">
         <a href="#home" class="font-display font-bold text-2xl tracking-tighter text-white hover-target hover:scale-105 transition-transform flex items-center">
-            <i class="fa-solid fa-cube text-primary mr-3 text-2xl animate-pulse-glow"></i>
+            <i class="fa-solid fa-cube text-primary mr-3 text-2xl animate-pulse-glow drop-shadow-[0_0_10px_#00F2FE]"></i>
             PARAS<span class="text-primary">FOLIO</span><span class="text-secondary text-sm">.</span>
         </a>
         
@@ -466,7 +441,7 @@
             <a href="#stack" class="nav-link hover:text-primary transition-colors hover-target">Stack</a>
             <a href="#systems" class="nav-link hover:text-primary transition-colors hover-target">Deployments</a>
             <a href="#research" class="nav-link hover:text-primary transition-colors hover-target">Research</a>
-            <a href="resume.pdf" download class="px-6 py-3 border border-white/20 rounded-full hover:border-primary hover:text-primary hover:bg-primary/5 transition-all hover-target text-white flex items-center space-x-2 bg-white/5 backdrop-blur-md shadow-lg">
+            <a href="resume.pdf" download class="px-6 py-3 border border-white/20 rounded-full hover:border-primary hover:text-primary hover:bg-primary/5 transition-all hover-target text-white flex items-center space-x-2 bg-white/5 backdrop-blur-md shadow-lg hover:shadow-neon-primary">
                 <i class="fa-solid fa-download"></i><span>Resume.pdf</span>
             </a>
         </div>
@@ -505,7 +480,7 @@
                     </p>
                     
                     <!-- Tech terminal bio -->
-                    <div class="gs-reveal terminal p-6 mb-10 border-l-4 border-l-primary max-w-2xl bg-darkBg/60 backdrop-blur-xl">
+                    <div class="gs-reveal terminal rounded-2xl p-6 mb-10 border-l-4 border-l-primary max-w-2xl bg-darkBg/60 backdrop-blur-xl shadow-glass">
                         <p class="text-lg md:text-xl text-gray-300 font-light leading-relaxed">
                             Building robust, intelligent applications at the intersection of deep neural analytics, mathematical modeling, and production-grade software infrastructures.
                         </p>
@@ -523,17 +498,17 @@
                     </div>
                 </div>
                 
-                <!-- Right Side 3D Avatar Area -->
+                <!-- Right Side 3D Avatar Area - Places Profile.jpg exactly as requested -->
                 <div class="lg:col-span-5 relative w-full h-[600px] flex justify-center items-center perspective-1200 hidden lg:flex">
-                    <!-- The 3D Avatar Card using Profile.jpg -->
+                    <!-- The 3D Avatar Card -->
                     <div id="hero-avatar" class="relative w-full max-w-[380px] aspect-[3/4.2] rounded-[2.5rem] glass-3d p-2 interactive-3d hover-target z-20 shadow-glass-hover border border-white/20">
                         <div class="w-full h-full rounded-[2rem] overflow-hidden relative pop-out">
-                            <img src="Profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop'" alt="Paras 3D Avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100">
+                            <img src="Profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop'" alt="Paras Avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100">
                             
                             <!-- Deep Shadow Overlay -->
                             <div class="absolute inset-0 bg-gradient-to-t from-[#020203] via-[#020203]/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none"></div>
                             
-                            <!-- 3D Pop out Interface -->
+                            <!-- 3D Pop out Interface Over Image -->
                             <div class="absolute bottom-8 left-8 right-8 pop-out-extreme pointer-events-none">
                                 <div class="bg-primary/20 backdrop-blur-md border border-primary/50 px-4 py-2 rounded-lg w-fit mb-5 shadow-neon-primary">
                                     <span class="text-primary text-[10px] font-mono tracking-widest uppercase flex items-center">
@@ -569,11 +544,11 @@
         <!-- ========================================== -->
         <!-- SECTION 2: ABOUT / MANIFESTO               -->
         <!-- ========================================== -->
-        <section id="manifesto" class="items-start py-40 bg-gradient-to-b from-transparent to-primary/5">
+        <section id="manifesto" class="items-start py-40">
             <div class="max-w-7xl mx-auto w-full gs-reveal">
                 <div class="flex items-center space-x-4 mb-8">
                     <div class="h-[1px] w-16 bg-primary"></div>
-                    <span class="text-[12px] font-mono tracking-widest text-primary uppercase font-bold">01. Manifesto</span>
+                    <span class="text-[12px] font-mono tracking-widest text-primary uppercase font-bold">01. Architecture</span>
                 </div>
                 
                 <h2 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-20 tracking-tighter leading-tight">
@@ -635,7 +610,7 @@
         <!-- ========================================== -->
         <!-- SECTION 3: EDUCATION & TIMELINE            -->
         <!-- ========================================== -->
-        <section id="journey" class="py-40">
+        <section id="journey" class="py-40 relative z-10">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="mb-32 gs-reveal">
                     <div class="flex items-center space-x-4 mb-4">
@@ -649,13 +624,29 @@
                 <!-- Massive Timeline Container -->
                 <div class="relative space-y-20 before:absolute before:inset-0 before:ml-8 md:before:ml-1/2 before:-translate-x-px md:before:translate-x-[-50%] before:h-full before:w-[2px] before:bg-gradient-to-b before:from-primary before:via-secondary before:to-transparent">
  
+                    <!-- 🟢 TEMPLATE FOR FUTURE EDUCATION OR ROLES 🟢 -->
+                    <!-- COPY THIS BLOCK TO ADD MORE ITEMS IN THE FUTURE -->
+                    <!--
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-darkBg border-2 border-white text-white shadow-glass shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125">
+                            <i class="fa-solid fa-briefcase text-2xl"></i>
+                        </div>
+                        <div class="w-[calc(100%-6rem)] md:w-[calc(50%-5rem)] glass-3d p-12 hover-target interactive-3d">
+                            <div class="pop-out">
+                                <div class="inline-block px-4 py-1.5 bg-white/10 border border-white/30 rounded-md text-[10px] font-mono text-white uppercase tracking-widest mb-6">Future Date</div>
+                                <h3 class="font-display text-4xl font-bold text-white mb-3">New Position / Degree</h3>
+                                <h4 class="text-sm font-bold text-gray-300 uppercase tracking-widest mb-8">Organization / Institution</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-base">Description of the role, learnings, or accomplishments.</p>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+ 
                     <!-- Entry 1: IIT Jodhpur -->
                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
-                        <!-- Timeline Node -->
                         <div class="flex items-center justify-center w-16 h-16 rounded-full bg-darkBg border-2 border-primary text-primary shadow-neon-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-primary group-hover:text-darkBg">
                             <i class="fa-solid fa-microchip text-2xl"></i>
                         </div>
-                        <!-- Content Card -->
                         <div class="w-[calc(100%-6rem)] md:w-[calc(50%-5rem)] glass-3d p-12 hover-target interactive-3d border-t-4 border-primary">
                             <div class="pop-out">
                                 <div class="inline-block px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-md text-[10px] font-mono text-primary uppercase tracking-widest mb-6 shadow-neon-primary">2025 — Present</div>
@@ -664,14 +655,12 @@
                                 <p class="text-gray-400 font-light leading-relaxed text-base mb-8">
                                     Currently pursuing a rigorous curriculum. Focusing entirely on deep learning architectures, scalable data pipelines, automated machine learning (MLOps), and advanced statistical algorithms. 
                                 </p>
-                                <!-- Interactive tags -->
                                 <div class="mt-8 pt-8 border-t border-white/10">
                                     <div class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-4">Core Modules Explored</div>
                                     <div class="flex flex-wrap gap-3">
                                         <span class="px-3 py-1.5 bg-white/5 rounded text-[11px] text-primary font-mono border border-white/10 hover:bg-white/10 transition-colors">Neural Networks</span>
                                         <span class="px-3 py-1.5 bg-white/5 rounded text-[11px] text-primary font-mono border border-white/10 hover:bg-white/10 transition-colors">Data Structures</span>
                                         <span class="px-3 py-1.5 bg-white/5 rounded text-[11px] text-primary font-mono border border-white/10 hover:bg-white/10 transition-colors">Linear Algebra</span>
-                                        <span class="px-3 py-1.5 bg-white/5 rounded text-[11px] text-primary font-mono border border-white/10 hover:bg-white/10 transition-colors">Predictive Modeling</span>
                                     </div>
                                 </div>
                             </div>
@@ -735,7 +724,7 @@
         <!-- ========================================== -->
         <!-- SECTION 4: CAPABILITIES / TECH STACK       -->
         <!-- ========================================== -->
-        <section id="stack" class="py-40 bg-gradient-to-t from-transparent to-secondary/5">
+        <section id="stack" class="py-40 relative z-10">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="mb-24 gs-reveal flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-12">
                     <div>
@@ -745,11 +734,12 @@
                         </div>
                         <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">Technology Stack.</h2>
                     </div>
-                    <div class="terminal p-4 mt-6 md:mt-0 text-right hidden md:block">
-                        <p class="text-accent font-mono text-xs">
+                    <div class="terminal p-5 mt-8 md:mt-0 text-right hidden md:block rounded-xl">
+                        <p class="text-accent font-mono text-xs text-left">
                             <span class="text-gray-500">paras@system:~$</span> init_stack --load<br>
                             [OK] CORE_LIBRARIES_LOADED<br>
-                            [OK] NEURAL_WEIGHTS_SYNCED
+                            [OK] NEURAL_WEIGHTS_SYNCED<br>
+                            [OK] TENSORS_ALLOCATED
                         </p>
                     </div>
                 </div>
@@ -784,7 +774,7 @@
                             <div class="flex flex-wrap justify-center gap-2 mt-auto">
                                 <span class="bg-secondary/10 border border-secondary/30 text-secondary px-4 py-1.5 rounded-md text-xs font-mono">PyTorch</span>
                                 <span class="bg-white/5 border border-white/10 text-gray-300 px-4 py-1.5 rounded-md text-xs font-mono">TensorFlow</span>
-                                <span class="bg-white/5 border border-white/10 text-gray-300 px-4 py-1.5 rounded-md text-xs font-mono">Scikit</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-4 py-1.5 rounded-md text-xs font-mono">Scikit-learn</span>
                             </div>
                         </div>
                     </div>
@@ -852,7 +842,7 @@
         <!-- ========================================== -->
         <!-- SECTION 5: ENGINEERED SYSTEMS / PROJECTS   -->
         <!-- ========================================== -->
-        <section id="systems" class="items-start pt-20 pb-40">
+        <section id="systems" class="items-start pt-20 pb-40 relative z-10">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="mb-32 gs-reveal">
                     <div class="flex items-center space-x-4 mb-4">
@@ -867,7 +857,31 @@
                 
                 <div class="space-y-40">
                     
-                    <!-- Project 1 (Flagship) -->
+                    <!-- 🟢 TEMPLATE FOR FUTURE PROJECTS 🟢 -->
+                    <!-- COPY THIS BLOCK TO ADD MORE PROJECTS -->
+                    <!--
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group">
+                        <div class="lg:col-span-7 order-2 lg:order-1 glass-3d p-10 md:p-14 interactive-3d border-l-4 border-white">
+                            <div class="pop-out">
+                                <div class="flex justify-between items-center mb-8">
+                                    <h3 class="font-display text-4xl font-bold text-white tracking-tighter">Project Name</h3>
+                                    <span class="text-white text-4xl opacity-50 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-code"></i></span>
+                                </div>
+                                <p class="text-xl font-light leading-relaxed text-gray-300 mb-10">Description goes here.</p>
+                                <div class="flex flex-wrap items-center gap-6 border-t border-white/10 pt-8">
+                                    <a href="#" target="_blank" class="inline-flex items-center space-x-2 text-sm font-bold tracking-widest uppercase text-white hover:text-primary transition-colors hover-target"><i class="devicon-github-original text-2xl"></i><span>Source</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 order-1 lg:order-2 interactive-3d h-full flex justify-center items-center">
+                            <div class="w-full max-w-[280px] aspect-[9/19.5] rounded-[2.5rem] overflow-hidden border-8 border-gray-900 shadow-glass relative pop-out-extreme bg-darkBg">
+                                <img src="image.jpg" class="absolute inset-0 w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    -->
+
+                    <!-- Project 1 (Flagship) with exact requested UI -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group">
                         <!-- Content Side -->
                         <div class="lg:col-span-7 order-2 lg:order-1 glass-3d p-10 md:p-14 interactive-3d border-l-4 border-primary shadow-glass-hover">
@@ -896,13 +910,13 @@
                                     <span class="bg-white/5 border border-white/10 px-4 py-2 rounded-md">Streamlit</span>
                                 </div>
  
-                                <!-- Action Links Flex Container -->
+                                <!-- Exact Action Links requested -->
                                 <div class="flex flex-wrap items-center gap-6 border-t border-white/10 pt-8">
                                     <a href="https://github.com/parasbishnoi029" target="_blank" class="inline-flex items-center space-x-2 text-sm font-bold tracking-widest uppercase text-white hover:text-primary transition-colors hover-target">
                                         <i class="devicon-github-original text-2xl"></i><span>Source Code</span>
                                     </a>
                                     <a href="https://www.linkedin.com/posts/paras029_google-googleaistudio-geminiai-ugcPost-7464556938668843008-rR0_/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAF60u9IBpVmvRsrkMAd5SUnLs9uxbs9DkL8" target="_blank" class="inline-flex items-center space-x-2 text-sm font-bold tracking-widest uppercase text-white hover:text-[#0077b5] transition-colors hover-target">
-                                        <i class="fa-brands fa-linkedin text-2xl"></i><span>Case Study</span>
+                                        <i class="fa-brands fa-linkedin text-2xl"></i><span>Post Overview</span>
                                     </a>
                                     <a href="resume-analyzer-demo.apk" download class="inline-flex items-center space-x-2 text-sm font-bold tracking-widest uppercase text-black bg-accent px-5 py-2.5 rounded-md hover:bg-white transition-colors hover-target">
                                         <i class="fa-brands fa-android text-xl"></i><span>Download APK</span>
@@ -911,7 +925,7 @@
                             </div>
                         </div>
                         
-                        <!-- Image Side (Mobile App Mockup) -->
+                        <!-- Image Side (Vertical Mobile Format per request) -->
                         <div class="lg:col-span-5 order-1 lg:order-2 interactive-3d h-full flex justify-center items-center">
                             <div class="w-full max-w-[280px] md:max-w-[340px] aspect-[9/19.5] rounded-[2.5rem] overflow-hidden border-8 border-gray-900 shadow-glass relative pop-out-extreme bg-darkBg">
                                 <!-- Mobile Status Bar Mockup -->
@@ -987,7 +1001,7 @@
         <!-- ========================================== -->
         <!-- SECTION 6: GITHUB & RESEARCH               -->
         <!-- ========================================== -->
-        <section id="research" class="py-40 bg-gradient-to-t from-darkBg to-transparent">
+        <section id="research" class="py-40 bg-gradient-to-t from-darkBg to-transparent relative z-10">
             <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 gs-reveal">
                 
                 <!-- Open Source Terminal -->
@@ -1013,7 +1027,7 @@
                         <div class="mb-12 border border-white/20 rounded-2xl p-6 bg-black/60 shadow-inner">
                             <div class="flex justify-between items-center mb-6">
                                 <span class="text-sm font-mono text-gray-400"><i class="fa-solid fa-code-commit mr-2"></i>parasbishnoi029</span>
-                                <span class="text-xs font-mono text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/30">1,240+ commits</span>
+                                <span class="text-xs font-mono text-green-400">1,240 commits this year</span>
                             </div>
                             <!-- Procedural Heatmap Generation -->
                             <div class="flex gap-1.5 overflow-x-hidden">
@@ -1040,6 +1054,9 @@
                                 </a>
                                 <a href="https://github.com/parasbishnoi029" target="_blank" class="hover-target flex items-center gap-2 bg-darkBg border border-white/20 hover:border-secondary hover:text-secondary px-5 py-2.5 rounded-full text-xs font-mono text-gray-300 transition-colors shadow-glass">
                                     <i class="fa-solid fa-code-branch"></i> Curatly_App
+                                </a>
+                                <a href="https://github.com/parasbishnoi029" target="_blank" class="hover-target flex items-center gap-2 bg-darkBg border border-white/20 hover:border-accent hover:text-accent px-5 py-2.5 rounded-full text-xs font-mono text-gray-300 transition-colors shadow-glass">
+                                    <i class="fa-solid fa-code-branch"></i> Portfolio
                                 </a>
                                 <a href="https://github.com/parasbishnoi029?tab=repositories" target="_blank" class="hover-target flex items-center gap-2 text-xs font-mono text-white px-5 py-2.5 uppercase tracking-widest hover:text-primary transition-colors ml-auto">
                                     View All Repos <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -1092,7 +1109,7 @@
         <!-- ========================================== -->
         <!-- SECTION 7: AWARDS & CERTIFICATIONS         -->
         <!-- ========================================== -->
-        <section id="achievements" class="py-32">
+        <section id="achievements" class="py-32 relative z-10">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="text-center mb-24 gs-reveal">
                     <span class="text-[10px] font-mono tracking-widest text-secondary uppercase block mb-4">Validation</span>
