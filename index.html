@@ -1,3 +1,6 @@
+
+
+Index · HTML
 <!-- 
   PARASFOLIO - ELITE EDITION (1000+ Lines)
   Immersive 3D SPA Portfolio for Applied AI & Data Science Architect.
@@ -28,7 +31,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     <link rel="canonical" href="https://parasbishnoi029.github.io/parasfolio/">  
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://parasbishnoi029.github.io/parasfolio/sitemap.xml">
-
+ 
     <script type="application/ld+json">
           {
             "@context": "https://schema.org",
@@ -317,7 +320,7 @@
         
         /* Text Split Animation Classes */
         .char { display: inline-block; opacity: 0; transform: translateY(20px) rotateX(-90deg); }
-
+ 
         /* ========================================== */
         /* GALLERY: PINNED HORIZONTAL SCROLL SYSTEM   */
         /* ========================================== */
@@ -334,7 +337,7 @@
         .gallery-card {
             position: relative;
             flex: 0 0 auto;
-            width: min(72vw, 460px);
+            width: min(90vw, 460px);
             border-radius: 28px;
             overflow: hidden;
             transform: translate3d(0,0,0) scale(0.85);
@@ -344,7 +347,7 @@
         }
         .gallery-card:nth-child(even) { margin-top: 4rem; }
         .gallery-card:nth-child(odd) { margin-bottom: 4rem; }
-
+ 
         .gallery-card-inner {
             position: relative;
             border-radius: 28px;
@@ -370,7 +373,7 @@
         }
         .gallery-card:hover .gallery-card-glow { opacity: 1; }
         .gallery-card:hover .gallery-card-inner { box-shadow: 0 40px 90px rgba(0,242,254,0.18); }
-
+ 
         .gallery-card-media {
             position: relative;
             height: 320px;
@@ -394,7 +397,7 @@
             inset: 0;
             background: linear-gradient(180deg, rgba(3,3,5,0) 40%, rgba(3,3,5,0.95) 100%);
         }
-
+ 
         .gallery-card-body {
             padding: 1.75rem 2rem 2rem;
             transform: translateY(8px);
@@ -402,7 +405,7 @@
             transition: transform 0.4s ease, opacity 0.4s ease;
         }
         .gallery-card:hover .gallery-card-body { transform: translateY(0); opacity: 1; }
-
+ 
         .gallery-progress-track {
             position: relative;
             max-width: 420px;
@@ -427,7 +430,7 @@
              will-change: transform;
              padding: 4rem 4vw;
         }
-
+ 
         @media (max-width: 768px) {
            .gallery-card {
                 width: 85vw; /* Make cards take up most of the screen */
@@ -444,62 +447,62 @@
       /* ===========================
    MOBILE OPTIMIZATION
 =========================== */
-
+ 
       @media (max-width:768px){
-
+ 
            body{
                cursor:auto;
               overflow-x:hidden;
             }
-
+ 
 /* Disable custom cursor */
           .cursor-dot,
           .cursor-ring{
             display:none!important;
           } 
-
+ 
 /* Reduce blur */
          .glass-3d{
             backdrop-filter:blur(8px);
             -webkit-backdrop-filter:blur(8px);
           }
-
+ 
 /* Hero */
           .hero-title{
              font-size:clamp(3rem,10vw,5rem);
            }
-
+ 
 /* Avatar */
           #hero-avatar{
              max-width:320px;
           }
-
+ 
 /* Gallery */
          .gallery-card{
               width:95vw;
               margin:0!important;
           }
-
+ 
           #gallery-track{
               gap:1rem;
               padding:2rem;
            }
-
+ 
 /* Timeline */
           #journey .group{
              flex-direction:column!important;
           }
-
+ 
         }
-
+ 
 /* Disable hover on phones */
       @media (hover:none){
-
+ 
           .glass-3d:hover{
             transform:none;
             box-shadow:none;
            }
-
+ 
       }
     </style>
 </head>
@@ -754,7 +757,7 @@
                         <img
                             src="assets/iit-campus.webp"
                             onerror="this.src='https://iitj.ac.in/PageImages/Gallery/08-2025/Slider-638899029792478951.png'"
-                            loading="lazy"
+                            loading="lazy" decoding="async"
                             alt="IIT Jodhpur Campus"
                             class="w-full h-[550px] object-cover">
                     </div>
@@ -1074,7 +1077,7 @@
                         <!-- Image Side -->
                         <div class="lg:col-span-5 order-1 lg:order-2 interactive-3d h-full flex justify-center items-center">
                             <div class="w-full max-w-[280px] md:max-w-[320px] aspect-[9/19.5] rounded-[2rem] overflow-hidden border border-white/10 shadow-glass relative pop-out-extreme">
-                                <img src="AIResumeanalyser.png"class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="App Interface">
+                                <img src="AIResumeanalyser.png" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="App Interface">
                                 <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/10 to-transparent opacity-80 pointer-events-none"></div>
                                 <div class="absolute bottom-6 right-6">
                                     <span class="bg-black/50 backdrop-blur border border-white/20 px-3 py-1.5 rounded text-[10px] font-mono tracking-widest text-white uppercase flex items-center">
@@ -1142,10 +1145,10 @@
                     </p>
                 </div>
             </div>
-
+ 
             <div id="gallery-pin" class="w-full">
                 <div id="gallery-track">
-
+ 
                     <!-- Gallery Card 1 -->
                     <article class="gallery-card hover-target" data-index="0">
                         <div class="gallery-card-glow"></div>
@@ -1153,7 +1156,7 @@
                             <div class="gallery-card-media">
                                 <img src="assets/gallery/resume.webp"
                                     onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" alt="AI Resume Analyzer preview">
+                                    loading="lazy" decoding="async" alt="AI Resume Analyzer preview">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1173,7 +1176,7 @@
                             </div>
                         </div>
                     </article>
-
+ 
                     <!-- Gallery Card 2: Video -->
                     <article class="gallery-card hover-target" data-index="1">
                         <div class="gallery-card-glow"></div>
@@ -1204,7 +1207,7 @@
                             </div>
                         </div>
                     </article>
-
+ 
                     <!-- Gallery Card 3: Curatly -->
                     <article class="gallery-card hover-target" data-index="2">
                         <div class="gallery-card-glow"></div>
@@ -1212,7 +1215,7 @@
                             <div class="gallery-card-media">
                                 <img src="assets/gallery/project2.webp"
                                     onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" alt="Curatly preview">
+                                    loading="lazy" decoding="async" alt="Curatly preview">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1230,7 +1233,7 @@
                             </div>
                         </div>
                     </article>
-
+ 
                     <!-- Gallery Card 4: Data Analytics Engine -->
                     <article class="gallery-card hover-target" data-index="3">
                         <div class="gallery-card-glow"></div>
@@ -1238,7 +1241,7 @@
                             <div class="gallery-card-media">
                                 <img src="assets/gallery/project3.webp"
                                     onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" alt="Data Analytics Engine preview">
+                                    loading="lazy" decoding="async" alt="Data Analytics Engine preview">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1256,7 +1259,7 @@
                             </div>
                         </div>
                     </article>
-
+ 
                     <!-- Gallery Card 5: Workspace -->
                     <article class="gallery-card hover-target" data-index="4">
                         <div class="gallery-card-glow"></div>
@@ -1264,7 +1267,7 @@
                             <div class="gallery-card-media">
                                 <img src="assets/gallery/workspace.webp"
                                     onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" alt="Development workspace">
+                                    loading="lazy" decoding="async" alt="Development workspace">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1281,10 +1284,10 @@
                             </div>
                         </div>
                     </article>
-
+ 
                 </div>
             </div>
-
+ 
             <!-- Progress indicator -->
             <div class="max-w-7xl mx-auto w-full px-[5%] mt-10">
                 <div class="gallery-progress-track">
@@ -1614,7 +1617,7 @@
                 el.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
             });
         });
-
+ 
         // --- 2B. GALLERY CARD 3D TILT (separate from .interactive-3d so hover scale/opacity stack cleanly) ---
         document.querySelectorAll('.gallery-card-inner').forEach(el => {
             el.addEventListener('mousemove', (e) => {
@@ -1631,14 +1634,22 @@
         });
  
         // --- 3. ADVANCED THREE.JS WEBGL ARCHITECTURE ---
-        const canvas = document.getElementById('webgl-canvas');
-        const scene = new THREE.Scene();
+        // Disabled on mobile/small screens to save battery, CPU and avoid jank.
+        const isMobileDevice = window.innerWidth < 768;
+        let canvas, scene, camera, renderer, terrain, dust, avatar3DGroup, coreMesh, outerHaloMesh;
+ 
+        if (isMobileDevice) {
+            const wc = document.getElementById('webgl-canvas');
+            if (wc) wc.style.display = 'none';
+        } else {
+        canvas = document.getElementById('webgl-canvas');
+        scene = new THREE.Scene();
         scene.fog = new THREE.FogExp2(0x030305, 0.012);
  
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 0, 30); 
  
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  
@@ -1668,7 +1679,7 @@
             transparent: true, 
             opacity: 0.08 
         });
-        const terrain = new THREE.Mesh(terrainGeo, terrainMat);
+        terrain = new THREE.Mesh(terrainGeo, terrainMat);
         terrain.rotation.x = -Math.PI / 2;
         terrain.position.y = -20;
         terrain.position.z = -50;
@@ -1690,26 +1701,31 @@
             transparent: true, 
             opacity: 0.3 
         });
-        const dust = new THREE.Points(pGeo, pMat);
+        dust = new THREE.Points(pGeo, pMat);
         scene.add(dust);
-
+ 
         // --- 3C. THE 3D HOLOGRAPHIC AVATAR BACKGROUND CORE ---
-        const avatar3DGroup = new THREE.Group();
+        avatar3DGroup = new THREE.Group();
         const coreGeo = new THREE.IcosahedronGeometry(4, 2);
         const coreMat = new THREE.MeshStandardMaterial({ color: 0x00F2FE, wireframe: true, transparent: true, opacity: 0.6 });
-        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        coreMesh = new THREE.Mesh(coreGeo, coreMat);
         
         const outerHaloGeo = new THREE.IcosahedronGeometry(5.5, 3);
         const outerHaloMat = new THREE.PointsMaterial({ size: 0.08, color: 0x9D4EDD, transparent: true, opacity: 0.4 });
-        const outerHaloMesh = new THREE.Points(outerHaloGeo, outerHaloMat);
+        outerHaloMesh = new THREE.Points(outerHaloGeo, outerHaloMat);
         
         avatar3DGroup.add(coreMesh);
         avatar3DGroup.add(outerHaloMesh);
         avatar3DGroup.position.set(12, 0, -10); // Placed deep behind the vertical card spot
         scene.add(avatar3DGroup);
+        } // end desktop-only Three.js setup
  
         // --- 4. PRELOADER & INITIAL GSAP ENTRANCE ANIMATIONS ---
         gsap.registerPlugin(ScrollTrigger);
+        if (isMobileDevice) {
+            // Skip heavy scroll recalculations from Three.js resizes on mobile
+            ScrollTrigger.config({ ignoreMobileResize: true });
+        }
         
         window.addEventListener('load', () => {
             gsap.to('#load-bar', { width: '100%', duration: 1.5, ease: 'power2.inOut', onUpdate: function() {
@@ -1746,12 +1762,12 @@
                         });
                     }
                 });
-
+ 
                 // --- GALLERY: PINNED HORIZONTAL SCROLL SETUP ---
                 initGalleryScroll();
             }});
         });
-
+ 
         // --- GALLERY SCROLL LOGIC ---
         function initGalleryScroll() {
             const pinWrap = document.getElementById('gallery-pin');
@@ -1759,9 +1775,9 @@
             const cards = gsap.utils.toArray('.gallery-card');
             const progressFill = document.getElementById('gallery-progress-fill');
             if (!pinWrap || !track || !cards.length) return;
-
+ 
             const getScrollDistance = () => Math.max(track.scrollWidth - pinWrap.clientWidth, 0);
-
+ 
             const galleryTween = gsap.to(track, {
                 x: () => -getScrollDistance(),
                 ease: 'none',
@@ -1779,7 +1795,7 @@
                     }
                 }
             });
-
+ 
             // Scale & fade each card as it nears the viewport center
             cards.forEach((card) => {
                 gsap.fromTo(card,
@@ -1798,11 +1814,12 @@
                     }
                 );
             });
-
+ 
             ScrollTrigger.refresh();
         }
  
         // --- 5. SCROLL-DRIVEN 3D CAMERA FLIGHT ---
+        if (!isMobileDevice) {
         gsap.to(camera.position, {
             z: -150, 
             ease: "none",
@@ -1824,6 +1841,7 @@
                 scrub: 2
             }
         });
+        } // end desktop-only scroll-driven camera/dust tweens
  
         // --- 6. MOUSE PARALLAX TRACKING LOGIC ---
         let mouseX = 0, mouseY = 0;
@@ -1837,12 +1855,14 @@
         });
  
         window.addEventListener('resize', () => {
+            if (isMobileDevice || !camera || !renderer) return;
             camera.aspect = window.innerWidth / window.innerHeight; 
             camera.updateProjectionMatrix(); 
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
  
-        // --- 7. GLOBAL RENDER LOOP ---
+        // --- 7. GLOBAL RENDER LOOP (desktop only) ---
+        if (!isMobileDevice) {
         const clock = new THREE.Clock();
         
         function animate() {
@@ -1868,6 +1888,9 @@
         }
  
         animate(); 
+        } // end desktop-only render loop
     </script>
 </body>
 </html>
+ 
+
