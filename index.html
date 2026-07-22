@@ -1,7 +1,7 @@
 <!-- 
-  PARASFOLIO - SINGULARITY EDITION (2026)
+  PARASFOLIO - AEON ARCHITECT EDITION (2026)
   Immersive 3D SPA Portfolio for Applied AI & Data Science Student @ IIT Jodhpur.
-  Upgrades: Vocal Neural Engine (TTS), Volumetric Glare Tracking, CRT Scanlines, Magnetic Cursor Snapping, Pinned Galleries, ParasBot AI, Matrix Canvas.
+  Upgrades: Spatial 3D Audio, Overdrive Theme Protocol, WebGL Click Shockwaves, Linux Boot Preloader, Glitch Typography.
 -->
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
@@ -75,22 +75,6 @@
                         'glass-hover': '0 40px 80px rgba(0, 242, 254, 0.15)',
                         'neon-primary': '0 0 20px rgba(0, 242, 254, 0.5)',
                         'neon-secondary': '0 0 20px rgba(157, 78, 221, 0.5)'
-                    },
-                    animation: {
-                        'spin-slow': 'spin 15s linear infinite',
-                        'spin-reverse': 'spin 20s linear infinite reverse',
-                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        pulseGlow: {
-                            '0%, 100%': { opacity: 1, filter: 'brightness(1)' },
-                            '50%': { opacity: 0.7, filter: 'brightness(1.5)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
                     }
                 }
             }
@@ -110,7 +94,12 @@
         body { 
             background-color: #030305; color: #ffffff; margin: 0; overflow-x: hidden; cursor: none; 
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            transition: filter 0.8s ease; /* For Overdrive Protocol */
         }
+
+        /* Overdrive Theme Protocol */
+        body.overdrive-mode { filter: hue-rotate(160deg) contrast(1.1) saturate(1.2); }
+        body.overdrive-mode img, body.overdrive-mode video { filter: hue-rotate(-160deg); }
 
         /* Top Scroll Progress Line */
         #scroll-progress {
@@ -123,7 +112,7 @@
         #matrix-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0; transition: opacity 0.5s ease; }
         #matrix-canvas.active { opacity: 0.12; }
  
-        /* Cinematic Noise & CRT Scanlines Overlay */
+        /* Cinematic Noise & Scanlines Overlay */
         .noise { 
             position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: 0.04; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); 
@@ -138,24 +127,16 @@
         #webgl-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
         #scroll-container { position: relative; z-index: 10; perspective: 1200px; }
  
-        .text-gradient { 
-            background: linear-gradient(135deg, #00F2FE 0%, #9D4EDD 100%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .text-gradient-secondary {
-            background: linear-gradient(135deg, #9D4EDD 0%, #4ADE80 100%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-        }
+        .text-gradient { background: linear-gradient(135deg, #00F2FE 0%, #9D4EDD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-gradient-secondary { background: linear-gradient(135deg, #9D4EDD 0%, #4ADE80 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
  
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 180px 5%; }
  
-        /* Glassmorphism & Volumetric Glare Tracking */
+        /* Glassmorphism */
         .glass-3d {
-            background: rgba(10, 12, 18, 0.4); backdrop-filter: blur(24px) saturate(150%);
-            -webkit-backdrop-filter: blur(24px) saturate(150%); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); transform-style: preserve-3d; 
-            transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
-            position: relative; overflow: hidden; /* Needed for glare constraint */
+            background: rgba(10, 12, 18, 0.4); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); transform-style: preserve-3d; 
+            transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; position: relative; overflow: hidden;
         }
         .glass-3d::after {
             content: ''; position: absolute; top: var(--mouse-y, 50%); left: var(--mouse-x, 50%);
@@ -170,25 +151,20 @@
         .pop-out-subtle { transform: translateZ(20px); transition: transform 0.3s ease; position: relative; z-index: 10;}
  
         /* Custom Cursor */
-        .cursor-dot { 
-            position: fixed; width: 8px; height: 8px; background: #00F2FE; border-radius: 50%; 
-            transform: translate(-50%, -50%); z-index: 9999; pointer-events: none; box-shadow: 0 0 10px #00F2FE;
-        }
-        .cursor-ring { 
-            position: fixed; width: 45px; height: 45px; border: 1px solid rgba(0, 242, 254, 0.6); 
-            border-radius: 50%; transform: translate(-50%, -50%); z-index: 9998; pointer-events: none; 
-            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; 
-        }
+        .cursor-dot { position: fixed; width: 8px; height: 8px; background: #00F2FE; border-radius: 50%; transform: translate(-50%, -50%); z-index: 9999; pointer-events: none; box-shadow: 0 0 10px #00F2FE; }
+        .cursor-ring { position: fixed; width: 45px; height: 45px; border: 1px solid rgba(0, 242, 254, 0.6); border-radius: 50%; transform: translate(-50%, -50%); z-index: 9998; pointer-events: none; transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; }
 
         /* Magnetic Buttons */
         .magnetic-btn { display: inline-flex; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform; }
  
-        /* Loader */
-        #loader { 
-            position: fixed; inset: 0; background: #030305; z-index: 10000; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-        }
-        .loader-glitch { position: relative; }
+        /* Glitch Typography Hover Effect */
+        .glitch-hover:hover { animation: textGlitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite; color: #00F2FE; text-shadow: 2px 2px #9D4EDD, -2px -2px #4ADE80; }
+        @keyframes textGlitch { 0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); } 40% { transform: translate(-2px, -2px); } 60% { transform: translate(2px, 2px); } 80% { transform: translate(2px, -2px); } 100% { transform: translate(0); } }
+
+        /* Loader & Boot Sequence */
+        #loader { position: fixed; inset: 0; background: #030305; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
+        #boot-sequence { position: absolute; top: 20px; left: 20px; font-family: 'Fira Code', monospace; font-size: 10px; color: rgba(0,242,254,0.4); text-align: left; max-height: 90vh; overflow: hidden; pointer-events: none; }
+        .loader-glitch { position: relative; z-index: 10; }
         .loader-glitch::before, .loader-glitch::after { content: "PARASFOLIO"; position: absolute; top: 0; left: 0; opacity: 0.8; }
         .loader-glitch::before { color: #00F2FE; z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
         .loader-glitch::after { color: #9D4EDD; z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse; }
@@ -197,16 +173,15 @@
         @keyframes glitch-anim-2 { 0% { transform: translate(0) } 20% { transform: translate(2px, -2px) } 40% { transform: translate(2px, 2px) } 60% { transform: translate(-2px, -2px) } 80% { transform: translate(-2px, 2px) } 100% { transform: translate(0) } }
         @keyframes typingBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
         @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes pulseGlow { 0%, 100% { opacity: 1; filter: brightness(1) } 50% { opacity: 0.7; filter: brightness(1.5) } }
 
+        .animate-pulse-glow { animation: pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         .typing-dot { width: 4px; height: 4px; background-color: #00F2FE; border-radius: 50%; display: inline-block; animation: typingBounce 1s infinite; }
         .typing-dot:nth-child(2) { animation-delay: 0.2s; }
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
         .blinking-cursor { display: inline-block; width: 12px; background-color: #fff; height: 1em; margin-left: 4px; animation: blinkCursor 1s step-end infinite; vertical-align: text-bottom;}
  
-        ::-webkit-scrollbar { width: 8px; } 
-        ::-webkit-scrollbar-track { background: #030305; } 
-        ::-webkit-scrollbar-thumb { background: #1E2235; border-radius: 10px;} 
-        ::-webkit-scrollbar-thumb:hover { background: #00F2FE; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #030305; } ::-webkit-scrollbar-thumb { background: #1E2235; border-radius: 10px;} ::-webkit-scrollbar-thumb:hover { background: #00F2FE; }
  
         .terminal-header { background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 10px 20px; display: flex; align-items: center; }
         .terminal-btn { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
@@ -220,30 +195,15 @@
         /* GALLERY PINNED HORIZONTAL */
         #gallery-pin { overflow: hidden; }
         #gallery-track { display: flex; align-items: center; gap: 3rem; will-change: transform; padding: 4rem 6vw; }
-        .gallery-card {
-            position: relative; flex: 0 0 auto; width: min(90vw, 460px); border-radius: 28px;
-            overflow: hidden; transform: translate3d(0,0,0) scale(0.85); opacity: 0.5; transition: box-shadow 0.4s ease; will-change: transform, opacity;
-        }
+        .gallery-card { position: relative; flex: 0 0 auto; width: min(90vw, 460px); border-radius: 28px; overflow: hidden; transform: translate3d(0,0,0) scale(0.85); opacity: 0.5; transition: box-shadow 0.4s ease; will-change: transform, opacity; }
         .gallery-card:nth-child(even) { margin-top: 4rem; }
         .gallery-card:nth-child(odd) { margin-bottom: 4rem; }
-
-        .gallery-card-inner {
-            position: relative; border-radius: 28px; background: rgba(10, 12, 18, 0.55);
-            backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%);
-            border: 1px solid rgba(255,255,255,0.08); transform-style: preserve-3d; overflow: hidden; cursor: pointer;
-        }
-        .gallery-card-glow {
-            position: absolute; inset: -1px; border-radius: 28px; padding: 1px;
-            background: linear-gradient(135deg, rgba(0,242,254,0.6), rgba(157,78,221,0.5), transparent 60%);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
-        }
+        .gallery-card-inner { position: relative; border-radius: 28px; background: rgba(10, 12, 18, 0.55); backdrop-filter: blur(20px) saturate(150%); border: 1px solid rgba(255,255,255,0.08); transform-style: preserve-3d; overflow: hidden; cursor: pointer; }
+        .gallery-card-glow { position: absolute; inset: -1px; border-radius: 28px; padding: 1px; background: linear-gradient(135deg, rgba(0,242,254,0.6), rgba(157,78,221,0.5), transparent 60%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
         .gallery-card:hover .gallery-card-glow { opacity: 1; }
         .gallery-card:hover .gallery-card-inner { box-shadow: 0 40px 90px rgba(0,242,254,0.18); }
         .gallery-card-media { position: relative; height: 320px; overflow: hidden; }
-        .gallery-card-media img, .gallery-card-media video {
-            width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
-        }
+        .gallery-card-media img, .gallery-card-media video { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
         .gallery-card:hover .gallery-card-media img, .gallery-card:hover .gallery-card-media video { transform: scale(1.18); }
         .gallery-card-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,3,5,0) 40%, rgba(3,3,5,0.95) 100%); pointer-events:none;}
         .gallery-card-body { padding: 1.75rem 2rem 2rem; transform: translateY(8px); opacity: 0.85; transition: transform 0.4s ease, opacity 0.4s ease; pointer-events:none; }
@@ -257,12 +217,9 @@
         /* Modals & HUDs */
         .hidden-modal { opacity: 0; pointer-events: none; transform: scale(0.95); }
         .transition-modal { transition: opacity 0.3s ease, transform 0.3s ease; }
-        
         #parasbot-window { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; }
         #parasbot-window.closed { transform: translateY(20px) scale(0.9); opacity: 0; pointer-events: none; }
         #toast-hud { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
-
-        /* Progress Bar inside Project Modal */
         .complexity-bar-fill { transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
 
         @media (max-width: 768px) {
@@ -276,7 +233,7 @@
             #journey .group { flex-direction: column !important; }
         }
 
-        @media (prefers-reduced-motion: reduce) { .gallery-card, .gallery-card-media img, .gallery-card-media video, .gallery-card-body, .magnetic-btn { transition: none !important; } }
+        @media (prefers-reduced-motion: reduce) { .gallery-card, .gallery-card-media img, .gallery-card-media video, .gallery-card-body, .magnetic-btn, .glitch-hover { transition: none !important; animation: none !important;} }
 
         /* Mobile Menu */
         .mobile-menu-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 55; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
@@ -311,11 +268,9 @@
     <!-- MATRIX RAIN BACKGROUND CANVAS -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- NOISE OVERLAY & SCANLINES -->
+    <!-- NOISE OVERLAY, SCANLINES & CURSOR -->
     <div class="noise"></div>
     <div class="scanlines hidden md:block"></div>
-    
-    <!-- CUSTOM CURSOR -->
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-ring hidden md:block"></div>
 
@@ -337,19 +292,19 @@
             <div class="flex justify-between items-center pb-4 border-b border-white/10 mb-4">
                 <div class="flex items-center space-x-2 text-xs font-mono text-primary">
                     <i class="fa-solid fa-terminal"></i>
-                    <span>PARASFOLIO_AI_COMMAND_PALETTE_v3.0</span>
+                    <span>PARASFOLIO_AEON_COMMAND_PALETTE_v4.0</span>
                 </div>
                 <button id="cmd-close-btn" class="text-gray-400 hover:text-white text-lg transition-colors hover-target"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div id="cmd-output" class="h-64 overflow-y-auto font-mono text-xs space-y-2 mb-4 text-gray-300 pr-2">
                 <div class="text-gray-500">// Type <span class="text-primary">/help</span> to list available commands.</div>
-                <div class="text-gray-500">// Shortcuts: <span class="text-accent">/skills</span>, <span class="text-accent">/projects</span>, <span class="text-accent">/gpa</span>, <span class="text-accent">/contact</span></div>
+                <div class="text-gray-500">// Shortcuts: <span class="text-accent">/skills</span>, <span class="text-accent">/projects</span>, <span class="text-accent">/gpa</span>, <span class="text-accent">/overdrive</span></div>
             </div>
 
             <div class="relative flex items-center border border-primary/30 rounded-lg bg-black/50 px-3 py-2">
                 <span class="text-primary font-mono text-xs mr-2">&gt;</span>
-                <input type="text" id="cmd-input" placeholder="Type a command (e.g. /skills)..." class="w-full bg-transparent text-white font-mono text-xs focus:outline-none hover-target" autocomplete="off">
+                <input type="text" id="cmd-input" placeholder="Type a command (e.g. /overdrive)..." class="w-full bg-transparent text-white font-mono text-xs focus:outline-none hover-target" autocomplete="off">
                 <button id="cmd-submit-btn" class="text-primary text-xs font-mono hover:text-white px-2 hover-target">RUN</button>
             </div>
         </div>
@@ -382,7 +337,7 @@
             <div class="bg-primary/10 border-b border-primary/20 px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center space-x-2 text-xs font-mono text-primary font-bold">
                     <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    <span>ParasBot AI v3.0 (Audio Ready)</span>
+                    <span>ParasBot AI v3.0 (Vocal Ready)</span>
                 </div>
                 <button id="parasbot-close" class="text-gray-400 hover:text-white hover-target"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -418,20 +373,23 @@
     </div>
  
     <!-- ========================================== -->
-    <!-- PRELOADER SEQUENCE                         -->
+    <!-- PRELOADER SEQUENCE (LINUX BOOT MOD)        -->
     <!-- ========================================== -->
     <div id="loader">
-        <h1 class="loader-glitch font-display text-5xl md:text-7xl font-bold tracking-tighter text-white mb-4">
-            PARAS<span class="text-primary">FOLIO</span>
-        </h1>
-        <div class="text-[10px] font-mono tracking-[0.4em] text-gray-500 uppercase mb-8 flex items-center">
-            <i class="fa-solid fa-circle-notch fa-spin text-primary mr-3"></i>
-            <span id="loading-text">Synthesizing Neural Environment</span>
+        <div id="boot-sequence"></div>
+        <div class="relative z-10 flex flex-col items-center justify-center h-full w-full bg-darkBg/90 backdrop-blur-sm">
+            <h1 class="loader-glitch font-display text-5xl md:text-7xl font-bold tracking-tighter text-white mb-4">
+                PARAS<span class="text-primary">FOLIO</span>
+            </h1>
+            <div class="text-[10px] font-mono tracking-[0.4em] text-gray-500 uppercase mb-8 flex items-center">
+                <i class="fa-solid fa-circle-notch fa-spin text-primary mr-3"></i>
+                <span id="loading-text">Synthesizing Aeon Environment</span>
+            </div>
+            <div class="w-64 h-[1px] bg-white/10 relative overflow-hidden rounded-full">
+                <div id="load-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-secondary w-0 rounded-full shadow-[0_0_10px_#00F2FE]"></div>
+            </div>
+            <div class="mt-4 text-[10px] font-mono text-gray-600" id="loading-percentage">0%</div>
         </div>
-        <div class="w-64 h-[1px] bg-white/10 relative overflow-hidden rounded-full">
-            <div id="load-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-secondary w-0 rounded-full shadow-[0_0_10px_#00F2FE]"></div>
-        </div>
-        <div class="mt-4 text-[10px] font-mono text-gray-600" id="loading-percentage">0%</div>
     </div>
  
     <!-- ========================================== -->
@@ -499,7 +457,7 @@
     <!-- MAIN SCROLLABLE HTML CONTENT -->
     <main id="scroll-container">
         
-        <!-- SECTION 1: HERO (TYPING EFFECT ADDED) -->
+        <!-- SECTION 1: HERO -->
         <section id="home" class="items-start justify-center pt-32 pb-0">
             <div class="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7">
@@ -508,7 +466,7 @@
                         <span>Navodayan • IIT Jodhpur • learner</span>
                     </div>
                     
-                    <h1 class="hero-title font-display font-bold tracking-tighter leading-[0.9] mb-4 text-white">
+                    <h1 class="hero-title font-display font-bold tracking-tighter leading-[0.9] mb-4 text-white glitch-hover cursor-pointer w-fit">
                         <span id="hero-typewriter"></span><span class="blinking-cursor"></span>
                     </h1>
                     <p class="hero-subtitle font-display text-xl md:text-3xl font-medium tracking-wide text-gradient mb-8">
@@ -568,7 +526,7 @@
                     <span class="text-[10px] font-mono tracking-widest text-primary uppercase">01. Manifesto</span>
                 </div>
                 
-                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-16 tracking-tighter">
+                <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-16 tracking-tighter glitch-hover cursor-default w-fit">
                     I don't just use models.<br>
                     <span class="text-gray-600">I dissect their anatomy.</span>
                 </h2>
@@ -632,7 +590,7 @@
                             <div class="h-[1px] w-12 bg-primary"></div>
                             <span class="text-[10px] font-mono tracking-widest text-primary uppercase block">Education</span>
                         </div>
-                        <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter mt-5">
+                        <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter mt-5 glitch-hover cursor-default w-fit">
                             IIT Jodhpur
                         </h2>
                         <p class="mt-8 text-gray-400 font-light leading-relaxed text-lg">
@@ -668,12 +626,11 @@
                         <div class="h-[1px] w-12 bg-secondary"></div>
                         <span class="text-[10px] font-mono tracking-widest text-secondary uppercase block">02. Chronology</span>
                     </div>
-                    <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">The Data Pipeline.</h2>
+                    <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter glitch-hover cursor-default w-fit">The Data Pipeline.</h2>
                     <p class="text-gray-400 mt-6 max-w-2xl font-light text-lg">A systematic progression through rigorous academic environments, building the mathematical and algorithmic foundation required for advanced AI research.</p>
                 </div>
                 
                 <div class="relative space-y-16 before:absolute before:inset-0 before:ml-6 md:before:ml-1/2 before:-translate-x-px md:before:translate-x-[-50%] before:h-full before:w-[2px] before:bg-gradient-to-b before:from-transparent before:via-white/20 before:to-transparent">
-                    <!-- Entry 1 -->
                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
                         <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-primary text-primary shadow-neon-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-primary group-hover:text-darkBg">
                             <i class="fa-solid fa-microchip"></i>
@@ -696,7 +653,6 @@
                         </div>
                     </div>
  
-                    <!-- Entry 2 -->
                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
                         <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-secondary text-secondary shadow-neon-secondary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-secondary group-hover:text-darkBg">
                             <i class="fa-solid fa-code"></i>
@@ -711,7 +667,6 @@
                         </div>
                     </div>
  
-                    <!-- Entry 3 -->
                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
                         <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-accent text-accent shadow-[0_0_20px_rgba(74,222,128,0.5)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-accent group-hover:text-darkBg">
                             <i class="fa-solid fa-square-root-variable"></i>
@@ -726,7 +681,6 @@
                         </div>
                     </div>
  
-                    <!-- Entry 4 -->
                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
                         <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-gray-500 text-gray-500 shadow-glass shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-gray-500 group-hover:text-darkBg">
                             <i class="fa-solid fa-building-columns"></i>
@@ -753,7 +707,7 @@
                             <div class="h-[1px] w-12 bg-primary"></div>
                             <span class="text-[10px] font-mono tracking-widest text-primary uppercase block">03. Capabilities</span>
                         </div>
-                        <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">Technology Stack.</h2>
+                        <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter glitch-hover cursor-default w-fit">Technology Stack.</h2>
                     </div>
                     <p class="text-gray-500 font-mono text-xs max-w-sm mt-6 md:mt-0 text-right hidden md:block">
                         // CORE_LIBRARIES_LOADED<br>
@@ -762,7 +716,6 @@
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 gs-reveal">
-                    <!-- Core Logic -->
                     <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-primary">
                         <div class="pop-out pointer-events-none flex flex-col h-full">
                             <div class="h-24 flex items-center justify-center">
@@ -778,7 +731,6 @@
                         </div>
                     </div>
                     
-                    <!-- Machine Learning -->
                     <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-secondary">
                         <div class="pop-out pointer-events-none flex flex-col h-full">
                             <div class="h-24 flex items-center justify-center">
@@ -794,7 +746,6 @@
                         </div>
                     </div>
  
-                    <!-- Data Science -->
                     <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-accent">
                         <div class="pop-out pointer-events-none flex flex-col h-full">
                             <div class="h-24 flex items-center justify-center">
@@ -810,7 +761,6 @@
                         </div>
                     </div>
  
-                    <!-- NLP & Generative AI -->
                     <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-white/50">
                         <div class="pop-out pointer-events-none flex flex-col h-full">
                             <div class="h-24 flex items-center justify-center">
@@ -867,7 +817,7 @@
                         <div class="h-[1px] w-12 bg-accent"></div>
                         <span class="text-[10px] font-mono tracking-widest text-accent uppercase block">04. Architecture in Action</span>
                     </div>
-                    <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">Engineered Systems.</h2>
+                    <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter glitch-hover cursor-default w-fit">Engineered Systems.</h2>
                     <p class="text-gray-400 mt-4 text-sm font-mono">// Click any project card below to inspect full architectural specifications.</p>
                 </div>
 
@@ -888,7 +838,6 @@
                 </div>
                 
                 <div class="space-y-16" id="projects-container">
-                    
                     <!-- Flagship Project -->
                     <div class="project-item project-trigger cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group" data-category="ai" data-project="resume-analyzer">
                         <div class="lg:col-span-7 order-2 lg:order-1 glass-3d p-10 md:p-14 interactive-3d border-l-4 border-primary">
@@ -915,9 +864,8 @@
                         </div>
                     </div>
  
-                    <!-- Minor Projects Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 gs-reveal">
-                        <!-- Project 2 (Curatly) -->
+                        <!-- Project 2 -->
                         <div class="project-item project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-secondary" data-category="android" data-project="curatly">
                             <div class="pop-out h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
@@ -935,7 +883,7 @@
                             </div>
                         </div>
                         
-                        <!-- Project 3 (Analytics) -->
+                        <!-- Project 3 -->
                         <div class="project-item project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-emerald-400" data-category="data" data-project="analytics-engine">
                             <div class="pop-out h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
@@ -962,7 +910,7 @@
             <div class="max-w-7xl mx-auto w-full px-[5%] pt-40">
                 <div class="text-center mb-16 gs-reveal">
                     <span class="text-[10px] font-mono tracking-widest text-primary uppercase block mb-4">Portfolio</span>
-                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter">System Gallery.</h2>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter glitch-hover cursor-default w-fit mx-auto">System Gallery.</h2>
                     <p class="text-gray-400 max-w-2xl mx-auto mt-6 font-light text-lg">
                         Click any card to expand media into the cinematic viewer.
                     </p>
@@ -1042,7 +990,6 @@
         <!-- SECTION 6: RESEARCH -->
         <section id="research" class="py-40">
             <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 gs-reveal">
-                <!-- Open Source Terminal -->
                 <div class="lg:col-span-7 glass-3d p-10 md:p-12 rounded-[2rem] interactive-3d hover-target bg-gradient-to-b from-darkBg to-primary/5 border border-primary/20">
                     <div class="pop-out">
                         <div class="flex items-center justify-between mb-8">
@@ -1054,14 +1001,13 @@
                             </div>
                         </div>
                         
-                        <h3 class="font-display text-4xl md:text-5xl font-bold text-white flex items-center mb-6">
+                        <h3 class="font-display text-4xl md:text-5xl font-bold text-white flex items-center mb-6 glitch-hover cursor-default w-fit">
                             <i class="devicon-github-original mr-4"></i> Open Source
                         </h3>
                         <p class="text-gray-400 font-light text-lg mb-10 leading-relaxed">
                             Active open-source contributions, research logs, and version control mastery. My GitHub is the public ledger of my daily coding, data engineering, and deployment habits.
                         </p>
                         
-                        <!-- Heatmap Simulation -->
                         <div class="mb-10 border border-white/10 rounded-xl p-4 bg-black/50">
                             <div class="flex justify-between items-center mb-4">
                                 <span class="text-xs font-mono text-gray-500">parasbishnoi029 / contributions</span>
@@ -1090,13 +1036,12 @@
                     </div>
                 </div>
  
-                <!-- Academic Research & Activities -->
                 <div class="lg:col-span-5 flex flex-col justify-center">
                     <div class="flex items-center space-x-4 mb-4">
                         <div class="h-[1px] w-12 bg-white/50"></div>
                         <span class="text-[10px] font-mono tracking-widest text-gray-400 uppercase block">05. Activities</span>
                     </div>
-                    <h3 class="font-display text-4xl font-bold text-white mb-10">Beyond the Code</h3>
+                    <h3 class="font-display text-4xl font-bold text-white mb-10 glitch-hover cursor-default w-fit">Beyond the Code</h3>
                     
                     <div class="space-y-6">
                         <div class="glass-3d p-6 rounded-2xl flex items-start hover-target interactive-3d group">
@@ -1132,7 +1077,7 @@
             <div class="max-w-7xl mx-auto w-full">
                 <div class="text-center mb-20 gs-reveal">
                     <span class="text-[10px] font-mono tracking-widest text-secondary uppercase block mb-4">Validation</span>
-                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter">Certifications & Awards.</h2>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter glitch-hover cursor-default w-fit mx-auto">Certifications & Awards.</h2>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 gs-reveal">
@@ -1181,7 +1126,7 @@
                         <span>Connection Port Open</span>
                     </div>
 
-                    <h2 class="font-display text-5xl md:text-8xl font-bold text-white mb-8 tracking-tighter">Initialize Link.</h2>
+                    <h2 class="font-display text-5xl md:text-8xl font-bold text-white mb-8 tracking-tighter glitch-hover cursor-default w-fit mx-auto">Initialize Link.</h2>
                     <p class="text-lg md:text-xl font-light text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
                         Currently available for <strong class="text-white">machine learning internships</strong>, open-source collaborations, and data science research assignments.
                     </p>
@@ -1233,14 +1178,12 @@
             const time = d.toLocaleTimeString('en-US', { hour12: false });
             el.innerHTML = `SYS: ONLINE // CLK: ${time} // UPTIME: 99.98%`;
         }
-        setInterval(updateTelemetry, 1000);
-        updateTelemetry();
+        setInterval(updateTelemetry, 1000); updateTelemetry();
 
         // --- 1. MAGNETIC BUTTON PHYSICS & DYNAMIC GLARE TRACKING ---
         document.querySelectorAll('.magnetic-btn').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const h = rect.width / 2; const v = rect.height / 2;
+                const rect = btn.getBoundingClientRect(); const h = rect.width / 2; const v = rect.height / 2;
                 const x = e.clientX - rect.left - h; const y = e.clientY - rect.top - v;
                 btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
             });
@@ -1253,29 +1196,35 @@
                 const x = e.clientX - rect.left; const y = e.clientY - rect.top;  
                 const centerX = rect.width / 2; const centerY = rect.height / 2;
                 const tiltX = (y - centerY) / 20; const tiltY = (centerX - x) / 20;
-                
                 el.style.transform = `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
-                // Update Spotlight Position
-                el.style.setProperty('--mouse-x', `${x}px`);
-                el.style.setProperty('--mouse-y', `${y}px`);
+                el.style.setProperty('--mouse-x', `${x}px`); el.style.setProperty('--mouse-y', `${y}px`);
             });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            });
+            el.addEventListener('mouseleave', () => el.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`);
         });
 
-        // --- 2. VOCAL NEURAL SYNTHESIZER (WEB AUDIO + SPEECH API) ---
+        // --- 2. 3D SPATIAL AUDIO SYNTHESIZER (WEB AUDIO API) ---
         let sfxEnabled = true;
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(freq, type = 'sine', duration = 0.08) {
+        function playSound(freq, type = 'sine', duration = 0.08, panVal = 0) {
             if (!sfxEnabled) return;
             try {
                 if(audioCtx.state === 'suspended') audioCtx.resume();
                 const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+                
+                // Add Stereo Panner if supported
+                let panner;
+                if(audioCtx.createStereoPanner) {
+                    panner = audioCtx.createStereoPanner();
+                    panner.pan.value = panVal;
+                }
+
                 osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
                 gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(gain); gain.connect(audioCtx.destination);
+                
+                if(panner) { osc.connect(gain); gain.connect(panner); panner.connect(audioCtx.destination); }
+                else { osc.connect(gain); gain.connect(audioCtx.destination); }
+
                 osc.start(); osc.stop(audioCtx.currentTime + duration);
             } catch (e) {}
         }
@@ -1288,25 +1237,25 @@
             });
         }
         document.querySelectorAll('.hover-target, button, a').forEach(el => {
-            el.addEventListener('mouseenter', () => playSound(600, 'sine', 0.03));
-            el.addEventListener('click', () => playSound(850, 'triangle', 0.08));
+            el.addEventListener('mouseenter', (e) => {
+                const pan = (e.clientX / window.innerWidth) * 2 - 1;
+                playSound(600, 'sine', 0.03, pan);
+            });
+            el.addEventListener('click', (e) => {
+                const pan = (e.clientX / window.innerWidth) * 2 - 1;
+                playSound(850, 'triangle', 0.08, pan);
+            });
         });
 
         // --- 3. TOAST NOTIFICATION ---
         function showToast(msg) {
-            const toast = document.getElementById('toast-hud');
-            const toastMsg = document.getElementById('toast-msg');
+            const toast = document.getElementById('toast-hud'), toastMsg = document.getElementById('toast-msg');
             if (!toast || !toastMsg) return;
-            toastMsg.innerText = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0'); toast.classList.add('translate-y-0', 'opacity-100');
+            toastMsg.innerText = msg; toast.classList.remove('translate-y-20', 'opacity-0'); toast.classList.add('translate-y-0', 'opacity-100');
             setTimeout(() => { toast.classList.remove('translate-y-0', 'opacity-100'); toast.classList.add('translate-y-20', 'opacity-0'); }, 3000);
         }
         const copyEmailBtn = document.getElementById('copy-email-btn');
-        if (copyEmailBtn) {
-            copyEmailBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText('paras.iitj@gmail.com'); showToast("Email address copied: paras.iitj@gmail.com");
-            });
-        }
+        if (copyEmailBtn) copyEmailBtn.addEventListener('click', () => { navigator.clipboard.writeText('paras.iitj@gmail.com'); showToast("Email address copied: paras.iitj@gmail.com"); });
 
         // --- 4. MATRIX RAIN EFFECT ---
         const matrixCanvas = document.getElementById('matrix-canvas'), matrixCtx = matrixCanvas.getContext('2d');
@@ -1351,7 +1300,7 @@
             });
         });
 
-        // --- 6. COMMAND PALETTE MODAL ENGINE (CTRL + K) ---
+        // --- 6. COMMAND PALETTE MODAL ENGINE (CTRL + K) & OVERDRIVE EASTER EGG ---
         const cmdModal = document.getElementById('cmd-modal'), cmdTrigger = document.getElementById('cmd-trigger-btn'), cmdClose = document.getElementById('cmd-close-btn');
         const cmdInput = document.getElementById('cmd-input'), cmdOutput = document.getElementById('cmd-output'), cmdSubmit = document.getElementById('cmd-submit-btn');
         function toggleCmdModal(open) {
@@ -1367,11 +1316,16 @@
             const userEntry = document.createElement('div'); userEntry.className = "text-primary font-mono"; userEntry.innerText = "> " + val; cmdOutput.appendChild(userEntry);
             const botReply = document.createElement('div'); botReply.className = "text-gray-300 font-mono pl-3 border-l border-primary/40 mb-2";
             switch (val) {
-                case '/help': botReply.innerHTML = "Available Commands:<br>- <span class='text-primary'>/skills</span>: Technical stack<br>- <span class='text-primary'>/projects</span>: List key systems<br>- <span class='text-primary'>/gpa</span>: Academic score<br>- <span class='text-primary'>/contact</span>: Contact & Social handles<br>- <span class='text-primary'>/clear</span>: Reset terminal"; break;
+                case '/help': botReply.innerHTML = "Commands:<br><span class='text-primary'>/skills</span><br><span class='text-primary'>/projects</span><br><span class='text-primary'>/gpa</span><br><span class='text-primary'>/contact</span><br><span class='text-primary'>/overdrive</span><br><span class='text-primary'>/clear</span>"; break;
                 case '/skills': botReply.innerHTML = "Core: Python, Kotlin, Java<br>AI/ML: PyTorch, TensorFlow, Scikit-learn, LangChain<br>Web/Cloud: Next.js, Supabase, Firebase, Tailwind CSS"; break;
                 case '/projects': botReply.innerHTML = "1. AI Resume Analyzer (Streamlit, LLMs)<br>2. Curatly (Android Content Curation)<br>3. Data Analytics Engine (Python Telemetry)"; break;
                 case '/gpa': botReply.innerHTML = "Academic Performance: <span class='text-accent font-bold'>8.75 CGPA</span> @ IIT Jodhpur."; break;
                 case '/contact': botReply.innerHTML = "Email: paras.iitj@gmail.com<br>LinkedIn: linkedin.com/in/paras029<br>GitHub: github.com/parasbishnoi029"; break;
+                case '/overdrive': 
+                    document.body.classList.toggle('overdrive-mode');
+                    botReply.innerHTML = "OVERDRIVE PROTOCOL ENGAGED. UI hue constraints released."; 
+                    playSound(400, 'square', 0.5); showToast("OVERDRIVE: ACTIVE");
+                    break;
                 case '/clear': cmdOutput.innerHTML = ""; cmdInput.value = ""; return;
                 default: botReply.innerHTML = `<span class='text-red-400'>Unknown command: '${val}'. Type /help for options.</span>`;
             }
@@ -1432,7 +1386,10 @@
 
         if (botToggle && botWindow) {
             botToggle.addEventListener('click', () => botWindow.classList.toggle('closed'));
-            botClose.addEventListener('click', () => botWindow.classList.add('closed'));
+            botClose.addEventListener('click', () => {
+                botWindow.classList.add('closed');
+                if('speechSynthesis' in window) window.speechSynthesis.cancel();
+            });
         }
 
         const botKnowledge = [
@@ -1471,7 +1428,7 @@
 
                 // Voice Output Integration
                 if(sfxEnabled && 'speechSynthesis' in window) {
-                    window.speechSynthesis.cancel(); // cancel any ongoing speech
+                    window.speechSynthesis.cancel(); 
                     const utterance = new SpeechSynthesisUtterance(foundReply);
                     utterance.pitch = 0.9; utterance.rate = 1.05;
                     window.speechSynthesis.speak(utterance);
@@ -1516,7 +1473,7 @@
                 cursorRing.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 100, fill: "forwards" });
             }
         });
-        document.querySelectorAll('a, button, .hover-target, .project-trigger, .gallery-card-inner').forEach(el => {
+        document.querySelectorAll('a, button, .hover-target, .project-trigger, .gallery-card-inner, .magnetic-btn').forEach(el => {
             el.addEventListener('mouseenter', () => { 
                 if (cursorRing) { cursorRing.style.width = '60px'; cursorRing.style.height = '60px'; cursorRing.style.backgroundColor = 'rgba(0,242,254,0.1)'; cursorRing.style.borderColor = 'rgba(0,242,254,1)'; }
             });
@@ -1525,7 +1482,7 @@
             });
         });
 
-        // --- 13. THREE.JS WEBGL RENDERER ---
+        // --- 13. THREE.JS WEBGL RENDERER & INTERACTIVE CLICK SHOCKWAVE ---
         const isMobileDevice = window.innerWidth < 768;
         let canvas, scene, camera, renderer, terrain, dust, avatar3DGroup, coreMesh, outerHaloMesh;
 
@@ -1557,12 +1514,37 @@
             outerHaloMesh = new THREE.Points(new THREE.IcosahedronGeometry(5.5, 3), new THREE.PointsMaterial({ size: 0.08, color: 0x9D4EDD, transparent: true, opacity: 0.4 }));
             avatar3DGroup.add(coreMesh); avatar3DGroup.add(outerHaloMesh);
             avatar3DGroup.position.set(12, 0, -10); scene.add(avatar3DGroup);
+
+            // WebGL Interactive Shockwave on global click
+            window.addEventListener('click', () => {
+                if(coreMesh) {
+                    gsap.to(coreMesh.scale, { x: 1.6, y: 1.6, z: 1.6, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.out" });
+                    gsap.to(outerHaloMesh.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" });
+                }
+            });
         }
  
-        // --- 14. GSAP ENTRANCES & TYPEWRITER TEXT ---
+        // --- 14. GSAP ENTRANCES, TERMINAL BOOT & TYPEWRITER TEXT ---
         gsap.registerPlugin(ScrollTrigger, TextPlugin);
+        
         window.addEventListener('load', () => {
-            gsap.to('#load-bar', { width: '100%', duration: 1.5, ease: 'power2.inOut', onUpdate: function() {
+            // Linux Boot Sequence Simulation
+            const bootElem = document.getElementById('boot-sequence');
+            const bootLogs = [
+                "INIT: Kernel v6.2.0-paras-core x86_64", "Mounting Virtual DOM File System...", "Scanning Hardware: Neural Processors Found",
+                "Allocating VRAM: 16384 MB", "Initializing WebGL Context...", "Loading Shaders... OK", "Establishing GSAP Timelines...",
+                "Waking ParasBot AI Subsystem...", "Loading Project Assets... 100%", "System Nominal. Awaiting User Handshake."
+            ];
+            
+            let logIndex = 0;
+            const bootInterval = setInterval(() => {
+                if(bootElem && logIndex < bootLogs.length) {
+                    bootElem.innerHTML += `<div>[${(Math.random() * 2).toFixed(4)}] ${bootLogs[logIndex]}</div>`;
+                    logIndex++;
+                } else { clearInterval(bootInterval); }
+            }, 120);
+
+            gsap.to('#load-bar', { width: '100%', duration: 1.8, ease: 'power2.inOut', onUpdate: function() {
                 document.getElementById('loading-percentage').innerText = Math.round(this.progress() * 100) + '%';
             }, onComplete: () => {
                 gsap.to('#loader', { opacity: 0, duration: 0.8, onComplete: () => {
@@ -1571,7 +1553,7 @@
                     if(avatarCard) gsap.fromTo(avatarCard, { z: 500, rotationY: 45, opacity: 0, scale: 0.5 }, { z: 0, rotationY: 0, opacity: 1, scale: 1, duration: 2.5, ease: 'power4.out' });
                     
                     // Dynamic Typewriter Effect for Hero
-                    gsap.to('#hero-typewriter', { duration: 1.5, text: "Hello, I'm Paras", ease: "none", delay: 0.2 });
+                    gsap.to('#hero-typewriter', { duration: 1.2, text: "Hello, I'm Paras", ease: "none", delay: 0.2 });
                     gsap.from('.hero-subtitle', { y: 50, opacity: 0, duration: 1.2, ease: 'power4.out', delay: 1.5 });
                 }});
  
@@ -1598,7 +1580,7 @@
             function animate() {
                 requestAnimationFrame(animate); const t = clock.getElapsedTime();
                 terrain.position.z = (t * 5) % 20 - 50; dust.rotation.y = t * 0.02;
-                coreMesh.rotation.x = t * 0.4; coreMesh.rotation.y = t * 0.5; outerHaloMesh.rotation.z = -t * 0.15;
+                coreMesh.rotation.x += 0.01; coreMesh.rotation.y += 0.015; outerHaloMesh.rotation.z = -t * 0.15;
                 camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.05; camera.position.y += (-mouseY * 0.005 - camera.position.y) * 0.05;
                 camera.lookAt(camera.position.x, camera.position.y, camera.position.z - 50); renderer.render(scene, camera);
             }
