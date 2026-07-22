@@ -1,7 +1,7 @@
 <!-- 
-  PARASFOLIO - QUANTUM OMEGA EDITION (2026)
+  PARASFOLIO - SUPREME QUANTUM EDITION (2026)
   Immersive 3D SPA Portfolio for Applied AI & Data Science Student @ IIT Jodhpur.
-  Upgrades: System Telemetry HUD, Upgraded Project Modals, ParasBot Quantum, Matrix Rain, Native Web Audio.
+  Upgrades: Dual Command Palette (Ctrl+K), ParasBot AI, Architectural Inspector Modal, Matrix Rain Canvas, Web Audio Synthesizer, Live Telemetry HUD.
 -->
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
@@ -229,6 +229,15 @@
         }
         .gallery-card:hover .gallery-card-media img, .gallery-card:hover .gallery-card-media video { transform: scale(1.18); }
 
+        /* Filter Switcher Styles */
+        .filter-btn.active {
+            background-color: #00F2FE; color: #000; box-shadow: 0 0 15px rgba(0, 242, 254, 0.6); border-color: #00F2FE;
+        }
+
+        /* Command Modal */
+        #cmd-modal { transition: opacity 0.3s ease, transform 0.3s ease; }
+        #cmd-modal.hidden-cmd { opacity: 0; pointer-events: none; transform: scale(0.95); }
+
         /* Project Modal */
         #project-modal { transition: opacity 0.3s ease, transform 0.3s ease; }
         #project-modal.hidden-modal { opacity: 0; pointer-events: none; transform: scale(0.95); }
@@ -285,13 +294,37 @@
     <!-- LIVE TELEMETRY STATUS HUD (TOP LEFT) -->
     <div class="fixed top-20 left-6 z-40 hidden xl:flex items-center space-x-3 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-[9px] font-mono tracking-widest text-gray-400 backdrop-blur-md pointer-events-none">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>SYS_STATUS: ONLINE // PING: 12ms // UPTIME: 99.9%</span>
+        <span>SYS_STATUS: ONLINE // LATENCY: 12ms // UPTIME: 99.98%</span>
     </div>
 
     <!-- TOAST NOTIFICATION HUD -->
     <div id="toast-hud" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100000] translate-y-20 opacity-0 pointer-events-none bg-darkBg/90 backdrop-blur-md border border-primary/50 text-white px-6 py-3 rounded-full flex items-center space-x-3 shadow-neon-primary text-xs font-mono">
         <i class="fa-solid fa-circle-check text-primary text-base"></i>
         <span id="toast-msg">Notification Message</span>
+    </div>
+
+    <!-- CYBER COMMAND TERMINAL MODAL (CTRL + K) -->
+    <div id="cmd-modal" class="hidden-cmd fixed inset-0 z-[100001] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-3d w-full max-w-2xl bg-darkBg/90 border border-primary/40 rounded-2xl p-6 relative overflow-hidden shadow-[0_0_50px_rgba(0,242,254,0.2)]">
+            <div class="flex justify-between items-center pb-4 border-b border-white/10 mb-4">
+                <div class="flex items-center space-x-2 text-xs font-mono text-primary">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>PARASFOLIO_COMMAND_PALETTE_v2.6</span>
+                </div>
+                <button id="cmd-close-btn" class="text-gray-400 hover:text-white text-lg transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div id="cmd-output" class="h-64 overflow-y-auto font-mono text-xs space-y-2 mb-4 text-gray-300 pr-2">
+                <div class="text-gray-500">// Type <span class="text-primary">/help</span> to list available options.</div>
+                <div class="text-gray-500">// Direct shortcuts: <span class="text-accent">/skills</span>, <span class="text-accent">/projects</span>, <span class="text-accent">/gpa</span>, <span class="text-accent">/contact</span></div>
+            </div>
+
+            <div class="relative flex items-center border border-primary/30 rounded-lg bg-black/50 px-3 py-2">
+                <span class="text-primary font-mono text-xs mr-2">&gt;</span>
+                <input type="text" id="cmd-input" placeholder="Type a command..." class="w-full bg-transparent text-white font-mono text-xs focus:outline-none" autocomplete="off">
+                <button id="cmd-submit-btn" class="text-primary text-xs font-mono hover:text-white px-2">RUN</button>
+            </div>
+        </div>
     </div>
 
     <!-- CINEMATIC PROJECT DETAIL MODAL -->
@@ -327,8 +360,11 @@
         </div>
     </div>
 
-    <!-- FLOATING HUD BACK TO TOP -->
+    <!-- FLOATING HUD CONTROLS (CMD & BACK TO TOP) -->
     <div id="hud-controls" class="fixed bottom-6 right-6 z-[90] flex flex-col space-y-3 opacity-0 transition-opacity duration-300 pointer-events-none">
+        <button id="cmd-trigger-btn" class="w-12 h-12 rounded-full bg-darkBg/80 border border-primary/40 backdrop-blur-md text-primary hover:bg-primary hover:text-black transition-all flex items-center justify-center shadow-neon-primary hover-target pointer-events-auto" title="Open Command Palette (Ctrl + K)">
+            <i class="fa-solid fa-terminal text-sm"></i>
+        </button>
         <button id="back-to-top-btn" class="w-12 h-12 rounded-full bg-darkBg/80 border border-white/20 backdrop-blur-md text-white hover:border-primary hover:text-primary transition-all flex items-center justify-center shadow-glass hover-target pointer-events-auto" title="Back to Top">
             <i class="fa-solid fa-arrow-up text-sm"></i>
         </button>
@@ -631,10 +667,10 @@
             </div>
         </section>
  
-        <!-- SECTION 5: ENGINEERED SYSTEMS -->
+        <!-- SECTION 5: ENGINEERED SYSTEMS (WITH FILTER SWITCHER & MODALS) -->
         <section id="systems" class="items-start pt-20 pb-40">
             <div class="max-w-7xl mx-auto w-full">
-                <div class="mb-16 gs-reveal">
+                <div class="mb-12 gs-reveal">
                     <div class="flex items-center space-x-4 mb-4">
                         <div class="h-[1px] w-12 bg-accent"></div>
                         <span class="text-[10px] font-mono tracking-widest text-accent uppercase block">04. Architecture in Action</span>
@@ -642,9 +678,25 @@
                     <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">Engineered Systems.</h2>
                     <p class="text-gray-400 mt-4 text-sm font-mono">// Click any project card below to inspect full architectural specifications.</p>
                 </div>
+
+                <!-- CATEGORY FILTER SWITCHER -->
+                <div class="flex flex-wrap gap-3 mb-12 gs-reveal" id="project-filters">
+                    <button class="filter-btn active border border-white/20 bg-white/5 text-xs font-mono px-5 py-2.5 rounded-full hover:border-primary transition-all duration-300 hover-target" data-filter="all">
+                        [ ALL SYSTEMS ]
+                    </button>
+                    <button class="filter-btn border border-white/20 bg-white/5 text-xs font-mono px-5 py-2.5 rounded-full hover:border-primary transition-all duration-300 hover-target text-gray-400" data-filter="ai">
+                        AI / ML
+                    </button>
+                    <button class="filter-btn border border-white/20 bg-white/5 text-xs font-mono px-5 py-2.5 rounded-full hover:border-primary transition-all duration-300 hover-target text-gray-400" data-filter="android">
+                        ANDROID
+                    </button>
+                    <button class="filter-btn border border-white/20 bg-white/5 text-xs font-mono px-5 py-2.5 rounded-full hover:border-primary transition-all duration-300 hover-target text-gray-400" data-filter="data">
+                        DATA SCIENCE
+                    </button>
+                </div>
                 
-                <div class="space-y-16">
-                    <div class="project-trigger cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group" data-project="resume-analyzer">
+                <div class="space-y-16" id="projects-container">
+                    <div class="project-item project-trigger cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group" data-category="ai" data-project="resume-analyzer">
                         <div class="lg:col-span-7 order-2 lg:order-1 glass-3d p-10 md:p-14 interactive-3d border-l-4 border-primary">
                             <div class="pop-out">
                                 <div class="flex justify-between items-center mb-6">
@@ -670,7 +722,7 @@
                     </div>
  
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 gs-reveal">
-                        <div class="project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-secondary" data-project="curatly">
+                        <div class="project-item project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-secondary" data-category="android" data-project="curatly">
                             <div class="pop-out h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
                                     <i class="fa-solid fa-folder-tree text-4xl text-secondary group-hover:rotate-12 transition-transform duration-300"></i>
@@ -687,7 +739,7 @@
                             </div>
                         </div>
                         
-                        <div class="project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-emerald-400" data-project="analytics-engine">
+                        <div class="project-item project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-emerald-400" data-category="data" data-project="analytics-engine">
                             <div class="pop-out h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
                                     <i class="fa-solid fa-chart-pie text-4xl text-emerald-400 group-hover:rotate-12 transition-transform duration-300"></i>
@@ -767,6 +819,51 @@
                 </div>
             </div>
         </section>
+
+        <!-- SECTION 7: AWARDS & CERTIFICATIONS -->
+        <section id="achievements" class="py-20">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="text-center mb-20 gs-reveal">
+                    <span class="text-[10px] font-mono tracking-widest text-secondary uppercase block mb-4">Validation</span>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter">Certifications & Awards.</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 gs-reveal">
+                    <div class="glass-3d p-8 rounded-3xl hover-target interactive-3d flex flex-col items-center text-center">
+                        <div class="pop-out">
+                            <div class="w-20 h-20 rounded-full bg-darkBg border-2 border-primary flex items-center justify-center mb-6 mx-auto shadow-neon-primary">
+                                <i class="fa-solid fa-brain text-3xl text-primary"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-2xl text-white mb-3">Machine Learning Foundation</h4>
+                            <p class="text-sm text-gray-400 font-light mb-6">Comprehensive mastery of core supervised and unsupervised algorithms.</p>
+                            <span class="text-[10px] font-mono text-primary uppercase tracking-widest border-t border-white/10 pt-4 block w-full">Verified Credential</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-3d p-8 rounded-3xl hover-target interactive-3d flex flex-col items-center text-center">
+                        <div class="pop-out">
+                            <div class="w-20 h-20 rounded-full bg-darkBg border-2 border-secondary flex items-center justify-center mb-6 mx-auto shadow-neon-secondary">
+                                <i class="fa-solid fa-database text-3xl text-secondary"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-2xl text-white mb-3">Data Science Core</h4>
+                            <p class="text-sm text-gray-400 font-light mb-6">Advanced data analysis, cleaning methodologies, and structuring pipelines.</p>
+                            <span class="text-[10px] font-mono text-secondary uppercase tracking-widest border-t border-white/10 pt-4 block w-full">Verified Credential</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-3d p-8 rounded-3xl hover-target interactive-3d flex flex-col items-center text-center">
+                        <div class="pop-out">
+                            <div class="w-20 h-20 rounded-full bg-darkBg border-2 border-emerald-400 flex items-center justify-center mb-6 mx-auto shadow-[0_0_20px_rgba(52,211,153,0.5)]">
+                                <i class="fa-solid fa-trophy text-3xl text-emerald-400"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-2xl text-white mb-3">Hackathon Participant</h4>
+                            <p class="text-sm text-gray-400 font-light mb-6">Proven ability to rapid-prototype, build, and deploy ML models under strict deadlines.</p>
+                            <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest border-t border-white/10 pt-4 block w-full">Competition Log</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
  
         <!-- SECTION 8: CONTACT -->
         <section id="contact" class="justify-center items-center py-40 min-h-[120vh]">
@@ -817,9 +914,9 @@
         </footer>
     </main>
  
-    <!-- UPGRADED SCRIPT ENGINE -->
+    <!-- SCRIPT ENGINE -->
     <script>
-        // --- 0. AUDIO SYNTHESIZER ---
+        // --- 0. AUDIO SYNTHESIZER (WEB AUDIO API) ---
         let sfxEnabled = true;
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -923,7 +1020,104 @@
             });
         }
 
-        // --- 3. PROJECT DETAIL MODAL ENGINE ---
+        // --- 3. PROJECT CATEGORY FILTER SWITCHER ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.getAttribute('data-filter');
+
+                projectItems.forEach(item => {
+                    const itemCat = item.getAttribute('data-category');
+                    if (cat === 'all' || itemCat === cat) {
+                        item.style.display = 'grid';
+                        gsap.fromTo(item, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 });
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 4. COMMAND PALETTE MODAL ENGINE (CTRL + K) ---
+        const cmdModal = document.getElementById('cmd-modal');
+        const cmdTrigger = document.getElementById('cmd-trigger-btn');
+        const cmdClose = document.getElementById('cmd-close-btn');
+        const cmdInput = document.getElementById('cmd-input');
+        const cmdOutput = document.getElementById('cmd-output');
+        const cmdSubmit = document.getElementById('cmd-submit-btn');
+
+        function toggleCmdModal(open) {
+            if (open) {
+                cmdModal.classList.remove('hidden-cmd');
+                cmdInput.focus();
+            } else {
+                cmdModal.classList.add('hidden-cmd');
+            }
+        }
+
+        if (cmdTrigger && cmdClose) {
+            cmdTrigger.addEventListener('click', () => toggleCmdModal(true));
+            cmdClose.addEventListener('click', () => toggleCmdModal(false));
+            
+            window.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    toggleCmdModal(cmdModal.classList.contains('hidden-cmd'));
+                }
+            });
+        }
+
+        function handleCmd() {
+            const val = cmdInput.value.trim().toLowerCase();
+            if (!val) return;
+
+            const userEntry = document.createElement('div');
+            userEntry.className = "text-primary font-mono";
+            userEntry.innerText = "> " + val;
+            cmdOutput.appendChild(userEntry);
+
+            const botReply = document.createElement('div');
+            botReply.className = "text-gray-300 font-mono pl-3 border-l border-primary/40 mb-2";
+
+            switch (val) {
+                case '/help':
+                    botReply.innerHTML = "Available Commands:<br>- <span class='text-primary'>/skills</span>: Technical stack<br>- <span class='text-primary'>/projects</span>: List key systems<br>- <span class='text-primary'>/gpa</span>: Academic score<br>- <span class='text-primary'>/contact</span>: Contact & Social handles<br>- <span class='text-primary'>/clear</span>: Reset terminal";
+                    break;
+                case '/skills':
+                    botReply.innerHTML = "Core: Python, Kotlin, Java<br>AI/ML: PyTorch, TensorFlow, Scikit-learn, LangChain<br>Web/Cloud: Next.js, Supabase, Firebase, Tailwind CSS";
+                    break;
+                case '/projects':
+                    botReply.innerHTML = "1. AI Resume Analyzer (Streamlit, LLMs)<br>2. Curatly (Android Content Curation)<br>3. Data Analytics Engine (Python Telemetry)";
+                    break;
+                case '/gpa':
+                    botReply.innerHTML = "Academic Performance: <span class='text-accent font-bold'>8.75 CGPA</span> @ IIT Jodhpur.";
+                    break;
+                case '/contact':
+                    botReply.innerHTML = "Email: paras.iitj@gmail.com<br>LinkedIn: linkedin.com/in/paras029<br>GitHub: github.com/parasbishnoi029";
+                    break;
+                case '/clear':
+                    cmdOutput.innerHTML = "";
+                    cmdInput.value = "";
+                    return;
+                default:
+                    botReply.innerHTML = `<span class='text-red-400'>Unknown command: '${val}'. Type /help for options.</span>`;
+            }
+
+            cmdOutput.appendChild(botReply);
+            cmdOutput.scrollTop = cmdOutput.scrollHeight;
+            cmdInput.value = "";
+        }
+
+        if (cmdSubmit && cmdInput) {
+            cmdSubmit.addEventListener('click', handleCmd);
+            cmdInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleCmd(); });
+        }
+
+        // --- 5. PROJECT DETAIL MODAL ENGINE ---
         const projectModal = document.getElementById('project-modal');
         const modalClose = document.getElementById('modal-close-btn');
         const modalContent = document.getElementById('modal-content');
@@ -976,7 +1170,7 @@
             projectModal.addEventListener('click', (e) => { if (e.target === projectModal) projectModal.classList.add('hidden-modal'); });
         }
 
-        // --- 4. PARASBOT AI CHATBOT HUD ---
+        // --- 6. PARASBOT AI CHATBOT HUD ---
         const botToggle = document.getElementById('parasbot-toggle');
         const botWindow = document.getElementById('parasbot-window');
         const botClose = document.getElementById('parasbot-close');
@@ -1027,7 +1221,7 @@
             botInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleParasBotChat(); });
         }
 
-        // --- 5. SCROLL PROGRESS & BACK TO TOP ---
+        // --- 7. SCROLL PROGRESS & BACK TO TOP ---
         const scrollProg = document.getElementById('scroll-progress');
         const hudControls = document.getElementById('hud-controls');
         const backToTopBtn = document.getElementById('back-to-top-btn');
