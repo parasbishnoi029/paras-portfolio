@@ -1,7 +1,7 @@
 <!-- 
   PARASFOLIO - SUPREME QUANTUM EDITION (2026)
   Immersive 3D SPA Portfolio for Applied AI & Data Science Student @ IIT Jodhpur.
-  Upgrades: Dual Command Palette (Ctrl+K), ParasBot AI, Architectural Inspector Modal, Matrix Rain Canvas, Web Audio Synthesizer, Live Telemetry HUD.
+  Upgrades: Dual Command Palette (Ctrl+K), ParasBot AI, Architectural Inspector Modal, Matrix Rain Canvas, Web Audio Synthesizer, Live Telemetry HUD, Filtering.
 -->
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
@@ -16,7 +16,9 @@
     <meta name="description" content="Paras - Applied AI & Data Science Student at IIT Jodhpur. Immersive 3D Portfolio.">
     <title>Paras Bishnoi - Applied AI & Data Science Portfolio</title>
     
-    <!-- FONTS & ICONS -->
+    <!-- ========================================== -->
+    <!-- FONTS & ICONS                              -->
+    <!-- ========================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
@@ -25,32 +27,33 @@
     <link rel="canonical" href="https://parasbishnoi029.github.io/parasfolio/">  
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://parasbishnoi029.github.io/parasfolio/sitemap.xml">
 
-    <!-- JSON-LD SCHEMA -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Paras Bishnoi",
-        "alternateName": "Paras Paras",
-        "url": "https://parasbishnoi029.github.io/parasfolio/",
-        "image": "https://parasbishnoi029.github.io/parasfolio/Profile.jpg",
-        "jobTitle": "Applied AI & Data Science Student",
-        "alumniOf": {
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Paras Bishnoi",
+            "alternateName": "Paras Paras",
+            "url": "https://parasbishnoi029.github.io/parasfolio/",
+            "image": "https://parasbishnoi029.github.io/parasfolio/Profile.jpg",
+            "jobTitle": "Applied AI & Data Science Student",
+            "alumniOf": {
             "@type": "CollegeOrUniversity",
             "name": "IIT Jodhpur"
-        },
-        "sameAs": [
+            },
+            "sameAs": [
             "https://github.com/parasbishnoi029",
             "https://linkedin.com/in/paras029",
             "https://www.instagram.com/parasbishnoi.03/",
             "https://www.facebook.com/paras.bishnoi.29",
             "https://x.com/parasbishnoi03"
-        ],
-        "description": "Applied AI & Data Science student at IIT Jodhpur specializing in deep learning, MLOps, and scalable data architectures."
-    }
+            ],
+            "description": "Applied AI & Data Science student at IIT Jodhpur specializing in deep learning, MLOps, and scalable data architectures."
+        }
     </script>
-
-    <!-- TAILWIND CSS -->
+    
+    <!-- ========================================== -->
+    <!-- TAILWIND CSS CONFIGURATION                 -->
+    <!-- ========================================== -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -105,28 +108,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
  
     <style>
+        /* Base Reset & Defaults */
         *, *::before, *::after { box-sizing: border-box; }
         body { 
             background-color: #030305; color: #ffffff; margin: 0; overflow-x: hidden; cursor: none; 
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Top Scroll Progress Line */
         #scroll-progress {
             position: fixed; top: 0; left: 0; height: 3px;
             background: linear-gradient(90deg, #00F2FE, #9D4EDD, #4ADE80);
-            z-index: 99999; width: 0%; box-shadow: 0 0 12px #00F2FE;
+            z-index: 99999; width: 0%; box-shadow: 0 0 12px #00F2FE; transition: width 0.1s ease-out;
         }
 
+        /* Matrix Rain Layer */
         #matrix-canvas {
             position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0; transition: opacity 0.5s ease;
         }
         #matrix-canvas.active { opacity: 0.12; }
  
+        /* Cinematic Noise Overlay */
         .noise { 
             position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: 0.04; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); 
         }
  
+        /* Fixed 3D Canvas */
         #webgl-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
         #scroll-container { position: relative; z-index: 10; perspective: 1200px; }
  
@@ -134,17 +142,18 @@
             background: linear-gradient(135deg, #00F2FE 0%, #9D4EDD 100%); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
+        .text-gradient-secondary {
+            background: linear-gradient(135deg, #9D4EDD 0%, #4ADE80 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
  
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 180px 5%; }
  
+        /* Glassmorphism */
         .glass-3d {
-            background: rgba(10, 12, 18, 0.4);
-            backdrop-filter: blur(24px) saturate(150%);
-            -webkit-backdrop-filter: blur(24px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-            transform-style: preserve-3d; 
+            background: rgba(10, 12, 18, 0.4); backdrop-filter: blur(24px) saturate(150%);
+            -webkit-backdrop-filter: blur(24px) saturate(150%); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); transform-style: preserve-3d; 
             transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
             position: relative;
         }
@@ -156,6 +165,7 @@
         .pop-out-extreme { transform: translateZ(80px); transition: transform 0.3s ease; transform-style: preserve-3d; }
         .pop-out-subtle { transform: translateZ(20px); transition: transform 0.3s ease; }
  
+        /* Custom Cursor */
         .cursor-dot { 
             position: fixed; width: 8px; height: 8px; background: #00F2FE; border-radius: 50%; 
             transform: translate(-50%, -50%); z-index: 9999; pointer-events: none; box-shadow: 0 0 10px #00F2FE;
@@ -166,15 +176,13 @@
             transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; 
         }
  
+        /* Loader */
         #loader { 
             position: fixed; inset: 0; background: #030305; z-index: 10000; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
         }
-        
         .loader-glitch { position: relative; }
-        .loader-glitch::before, .loader-glitch::after {
-            content: "PARASFOLIO"; position: absolute; top: 0; left: 0; opacity: 0.8;
-        }
+        .loader-glitch::before, .loader-glitch::after { content: "PARASFOLIO"; position: absolute; top: 0; left: 0; opacity: 0.8; }
         .loader-glitch::before { color: #00F2FE; z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
         .loader-glitch::after { color: #9D4EDD; z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse; }
  
@@ -192,20 +200,23 @@
         ::-webkit-scrollbar-thumb { background: #1E2235; border-radius: 10px;} 
         ::-webkit-scrollbar-thumb:hover { background: #00F2FE; }
  
+        .terminal-header { background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 10px 20px; display: flex; align-items: center; }
+        .terminal-btn { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+ 
         .nav-link { position: relative; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00F2FE; transition: width 0.3s ease;
-        }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #00F2FE; transition: width 0.3s ease; }
         .nav-link:hover::after { width: 100%; }
         
         .hero-title { font-size: clamp(2.75rem, 9vw, 7rem) !important; }
+        .clip-hex { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .char { display: inline-block; opacity: 0; transform: translateY(20px) rotateX(-90deg); }
 
         /* GALLERY PINNED HORIZONTAL */
         #gallery-pin { overflow: hidden; }
         #gallery-track { display: flex; align-items: center; gap: 3rem; will-change: transform; padding: 4rem 6vw; }
         .gallery-card {
             position: relative; flex: 0 0 auto; width: min(90vw, 460px); border-radius: 28px;
-            overflow: hidden; transform: translate3d(0,0,0) scale(0.85); opacity: 0.5; transition: box-shadow 0.4s ease;
+            overflow: hidden; transform: translate3d(0,0,0) scale(0.85); opacity: 0.5; transition: box-shadow 0.4s ease; will-change: transform, opacity;
         }
         .gallery-card:nth-child(even) { margin-top: 4rem; }
         .gallery-card:nth-child(odd) { margin-bottom: 4rem; }
@@ -228,25 +239,25 @@
             width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
         }
         .gallery-card:hover .gallery-card-media img, .gallery-card:hover .gallery-card-media video { transform: scale(1.18); }
+        .gallery-card-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,3,5,0) 40%, rgba(3,3,5,0.95) 100%); }
+        .gallery-card-body { padding: 1.75rem 2rem 2rem; transform: translateY(8px); opacity: 0.85; transition: transform 0.4s ease, opacity 0.4s ease; }
+        .gallery-card:hover .gallery-card-body { transform: translateY(0); opacity: 1; }
 
-        /* Filter Switcher Styles */
-        .filter-btn.active {
-            background-color: #00F2FE; color: #000; box-shadow: 0 0 15px rgba(0, 242, 254, 0.6); border-color: #00F2FE;
-        }
+        .gallery-progress-track { position: relative; max-width: 420px; margin: 0 auto; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+        .gallery-progress-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0%; background: linear-gradient(90deg, #00F2FE, #9D4EDD); box-shadow: 0 0 12px rgba(0,242,254,0.6); }
 
-        /* Command Modal */
-        #cmd-modal { transition: opacity 0.3s ease, transform 0.3s ease; }
-        #cmd-modal.hidden-cmd { opacity: 0; pointer-events: none; transform: scale(0.95); }
+        /* Filter Switcher Active Styles */
+        .filter-btn.active { background-color: #00F2FE; color: #000; box-shadow: 0 0 15px rgba(0, 242, 254, 0.6); border-color: #00F2FE; }
 
-        /* Project Modal */
-        #project-modal { transition: opacity 0.3s ease, transform 0.3s ease; }
-        #project-modal.hidden-modal { opacity: 0; pointer-events: none; transform: scale(0.95); }
-
-        /* ParasBot Chatbot Widget */
+        /* Modals & HUDs */
+        #cmd-modal, #project-modal { transition: opacity 0.3s ease, transform 0.3s ease; }
+        #cmd-modal.hidden-cmd, #project-modal.hidden-modal { opacity: 0; pointer-events: none; transform: scale(0.95); }
         #parasbot-window { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; }
         #parasbot-window.closed { transform: translateY(20px) scale(0.9); opacity: 0; pointer-events: none; }
+        #toast-hud { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
 
-        @media (max-width:768px){
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
             body { cursor: auto; overflow-x: hidden; }
             .cursor-dot, .cursor-ring { display: none !important; } 
             .glass-3d { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
@@ -256,26 +267,42 @@
             #journey .group { flex-direction: column !important; }
         }
 
+        @media (prefers-reduced-motion: reduce) { .gallery-card, .gallery-card-media img, .gallery-card-media video, .gallery-card-body { transition: none !important; } }
+
+        /* Mobile Slide-Out Menu */
         .mobile-menu-backdrop {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
             z-index: 55; opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
         }
         .mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
         .mobile-menu {
-            position: fixed; top: 0; right: 0; height: 100dvh; width: min(80vw, 360px);
-            background: rgba(8,8,12,0.98); border-left: 1px solid rgba(255,255,255,0.1); z-index: 65;
-            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-            display: flex; flex-direction: column; justify-center; overflow-y: auto;
+            position: fixed; top: 0; right: 0; height: 100dvh; width: min(80vw, 360px); background: rgba(8,8,12,0.98);
+            border-left: 1px solid rgba(255,255,255,0.1); z-index: 65; transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); display: flex; flex-direction: column; justify-content: center; overflow-y: auto;
         }
         .mobile-menu.open { transform: translateX(0); }
         .mobile-menu-links { display: flex; flex-direction: column; gap: 0.5rem; padding: 2rem 2.5rem; }
         .mobile-nav-link {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 600; color: #fff;
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 600; letter-spacing: 0.02em; color: #fff;
             padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase;
-            opacity: 0; transform: translateX(24px); transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0; transform: translateX(24px); transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s ease;
         }
         .mobile-menu.open .mobile-nav-link { opacity: 1; transform: translateX(0); }
+        .mobile-nav-link:hover, .mobile-nav-link:active { color: #00F2FE; }
+        .mobile-nav-resume { margin-top: 1rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; text-align: center; }
         body.menu-open { overflow: hidden; }
+
+        .mobile-menu-links .mobile-nav-link:nth-child(1){ transition-delay:0.05s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(2){ transition-delay:0.09s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(3){ transition-delay:0.13s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(4){ transition-delay:0.17s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(5){ transition-delay:0.21s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(6){ transition-delay:0.25s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(7){ transition-delay:0.29s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(8){ transition-delay:0.33s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(9){ transition-delay:0.37s; }
+
+        @media (hover:none){ .glass-3d:hover { transform: none; box-shadow: none; } }
     </style>
 </head>
 <body class="selection:bg-primary/20">
@@ -283,7 +310,7 @@
     <!-- TOP SCROLL PROGRESS BAR -->
     <div id="scroll-progress"></div>
  
-    <!-- MATRIX RAIN CANVAS -->
+    <!-- MATRIX RAIN BACKGROUND CANVAS -->
     <canvas id="matrix-canvas"></canvas>
 
     <!-- NOISE OVERLAY & CURSOR -->
@@ -292,37 +319,37 @@
     <div class="cursor-ring hidden md:block"></div>
 
     <!-- LIVE TELEMETRY STATUS HUD (TOP LEFT) -->
-    <div class="fixed top-20 left-6 z-40 hidden xl:flex items-center space-x-3 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-[9px] font-mono tracking-widest text-gray-400 backdrop-blur-md pointer-events-none">
+    <div class="fixed top-20 left-8 z-40 hidden xl:flex items-center space-x-3 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-[9px] font-mono tracking-widest text-gray-400 backdrop-blur-md pointer-events-none">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>SYS_STATUS: ONLINE // LATENCY: 12ms // UPTIME: 99.98%</span>
+        <span>SYS_STATUS: ONLINE // PING: 12ms // UPTIME: 99.98%</span>
     </div>
 
     <!-- TOAST NOTIFICATION HUD -->
     <div id="toast-hud" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100000] translate-y-20 opacity-0 pointer-events-none bg-darkBg/90 backdrop-blur-md border border-primary/50 text-white px-6 py-3 rounded-full flex items-center space-x-3 shadow-neon-primary text-xs font-mono">
         <i class="fa-solid fa-circle-check text-primary text-base"></i>
-        <span id="toast-msg">Notification Message</span>
+        <span id="toast-msg">Command executed successfully</span>
     </div>
 
-    <!-- CYBER COMMAND TERMINAL MODAL (CTRL + K) -->
+    <!-- CYBER COMMAND TERMINAL MODAL -->
     <div id="cmd-modal" class="hidden-cmd fixed inset-0 z-[100001] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
         <div class="glass-3d w-full max-w-2xl bg-darkBg/90 border border-primary/40 rounded-2xl p-6 relative overflow-hidden shadow-[0_0_50px_rgba(0,242,254,0.2)]">
             <div class="flex justify-between items-center pb-4 border-b border-white/10 mb-4">
                 <div class="flex items-center space-x-2 text-xs font-mono text-primary">
                     <i class="fa-solid fa-terminal"></i>
-                    <span>PARASFOLIO_COMMAND_PALETTE_v2.6</span>
+                    <span>PARASFOLIO_AI_COMMAND_PALETTE_v2.6</span>
                 </div>
-                <button id="cmd-close-btn" class="text-gray-400 hover:text-white text-lg transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                <button id="cmd-close-btn" class="text-gray-400 hover:text-white text-lg transition-colors hover-target"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div id="cmd-output" class="h-64 overflow-y-auto font-mono text-xs space-y-2 mb-4 text-gray-300 pr-2">
-                <div class="text-gray-500">// Type <span class="text-primary">/help</span> to list available options.</div>
-                <div class="text-gray-500">// Direct shortcuts: <span class="text-accent">/skills</span>, <span class="text-accent">/projects</span>, <span class="text-accent">/gpa</span>, <span class="text-accent">/contact</span></div>
+                <div class="text-gray-500">// Type <span class="text-primary">/help</span> to list available commands.</div>
+                <div class="text-gray-500">// Shortcuts: <span class="text-accent">/skills</span>, <span class="text-accent">/projects</span>, <span class="text-accent">/gpa</span>, <span class="text-accent">/contact</span></div>
             </div>
 
             <div class="relative flex items-center border border-primary/30 rounded-lg bg-black/50 px-3 py-2">
                 <span class="text-primary font-mono text-xs mr-2">&gt;</span>
-                <input type="text" id="cmd-input" placeholder="Type a command..." class="w-full bg-transparent text-white font-mono text-xs focus:outline-none" autocomplete="off">
-                <button id="cmd-submit-btn" class="text-primary text-xs font-mono hover:text-white px-2">RUN</button>
+                <input type="text" id="cmd-input" placeholder="Type a command (e.g. /skills)..." class="w-full bg-transparent text-white font-mono text-xs focus:outline-none hover-target" autocomplete="off">
+                <button id="cmd-submit-btn" class="text-primary text-xs font-mono hover:text-white px-2 hover-target">RUN</button>
             </div>
         </div>
     </div>
@@ -331,7 +358,9 @@
     <div id="project-modal" class="hidden-modal fixed inset-0 z-[100001] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
         <div class="glass-3d w-full max-w-3xl bg-darkBg/95 border border-primary/40 rounded-3xl p-8 relative overflow-hidden shadow-[0_0_80px_rgba(0,242,254,0.25)]">
             <button id="modal-close-btn" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white flex items-center justify-center hover-target transition-all"><i class="fa-solid fa-xmark"></i></button>
-            <div id="modal-content" class="space-y-6"></div>
+            <div id="modal-content" class="space-y-6">
+                <!-- Dynamically populated via JS -->
+            </div>
         </div>
     </div>
 
@@ -346,7 +375,7 @@
                     <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                     <span>ParasBot AI v2.6</span>
                 </div>
-                <button id="parasbot-close" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <button id="parasbot-close" class="text-gray-400 hover:text-white hover-target"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="parasbot-messages" class="flex-grow p-4 overflow-y-auto space-y-3 font-mono text-xs text-gray-300">
                 <div class="bg-white/5 border border-white/10 p-3 rounded-xl max-w-[85%]">
@@ -354,7 +383,7 @@
                 </div>
             </div>
             <div class="p-3 border-t border-white/10 flex items-center space-x-2 bg-black/40">
-                <input type="text" id="parasbot-input" placeholder="Ask about CGPA, AI projects..." class="w-full bg-white/5 border border-white/10 text-white font-mono text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-primary">
+                <input type="text" id="parasbot-input" placeholder="Ask about CGPA, AI projects..." class="hover-target w-full bg-white/5 border border-white/10 text-white font-mono text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-primary">
                 <button id="parasbot-send" class="bg-primary text-darkBg font-bold px-4 py-2 rounded-lg text-xs hover-target"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
@@ -370,7 +399,9 @@
         </button>
     </div>
  
-    <!-- PRELOADER -->
+    <!-- ========================================== -->
+    <!-- PRELOADER SEQUENCE                         -->
+    <!-- ========================================== -->
     <div id="loader">
         <h1 class="loader-glitch font-display text-5xl md:text-7xl font-bold tracking-tighter text-white mb-4">
             PARAS<span class="text-primary">FOLIO</span>
@@ -385,10 +416,14 @@
         <div class="mt-4 text-[10px] font-mono text-gray-600" id="loading-percentage">0%</div>
     </div>
  
-    <!-- 3D WEBGL CANVAS -->
+    <!-- ========================================== -->
+    <!-- GLOBAL 3D WEBGL CANVAS                     -->
+    <!-- ========================================== -->
     <canvas id="webgl-canvas"></canvas>
  
-    <!-- NAVIGATION HEADER -->
+    <!-- ========================================== -->
+    <!-- NAVIGATION HEADER                          -->
+    <!-- ========================================== -->
     <nav class="fixed top-0 w-full z-50 px-8 py-6 mix-blend-difference flex justify-between items-center pointer-events-auto">
         <a href="#home" class="font-display font-bold text-2xl tracking-tighter text-white hover-target hover:scale-105 transition-transform flex items-center">
             <i class="fa-solid fa-cube text-primary mr-2 text-xl animate-pulse-glow"></i>
@@ -406,6 +441,7 @@
             <a href="#research" class="nav-link hover:text-primary transition-colors hover-target">Research</a>
             <a href="#achievements" class="nav-link hover:text-primary transition-colors hover-target">Awards</a>
             
+            <!-- Upgraded Toggles -->
             <button id="matrix-toggle-btn" class="px-3 py-1.5 rounded-full border border-white/20 text-gray-300 hover:text-primary hover:border-primary transition-all hover-target text-[10px]" title="Toggle Matrix Rain">
                 <i class="fa-solid fa-code mr-1"></i>MATRIX
             </button>
@@ -436,14 +472,14 @@
             <a href="#gallery" class="mobile-nav-link">Gallery</a>
             <a href="#research" class="mobile-nav-link">Research</a>
             <a href="#achievements" class="mobile-nav-link">Awards</a>
-            <a href="resume.pdf" download class="mobile-nav-link text-primary mt-4">
+            <a href="resume.pdf" download class="mobile-nav-link mobile-nav-resume text-primary">
                 <i class="fa-solid fa-download mr-2"></i>Resume.pdf
             </a>
         </div>
     </div>
     <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
  
-    <!-- MAIN CONTENT -->
+    <!-- MAIN SCROLLABLE HTML CONTENT -->
     <main id="scroll-container">
         
         <!-- SECTION 1: HERO -->
@@ -480,7 +516,9 @@
                     <div id="hero-avatar" class="relative w-full max-w-sm aspect-[3/4] rounded-[2rem] glass-3d p-2 interactive-3d hover-target z-20 shadow-glass-hover">
                         <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative pop-out">
                             <img src="Profile.jpg" onerror="this.src='https://kommodo.ai/i/q60CtUmf3KtyG1A4Gzq5'" alt="Paras 3D Avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                            
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/40 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                            
                             <div class="absolute bottom-8 left-8 right-8 pop-out-extreme">
                                 <div class="bg-primary/20 backdrop-blur-md border border-primary/50 px-4 py-1.5 rounded-md w-fit mb-4 shadow-neon-primary">
                                     <span class="text-primary text-[10px] font-mono tracking-widest uppercase flex items-center">
@@ -490,6 +528,10 @@
                                 <h2 class="font-display text-5xl font-bold text-white tracking-tighter drop-shadow-2xl mb-1">PARAS</h2>
                                 <div class="text-[10px] font-mono text-gray-300 tracking-widest uppercase opacity-80">AI & Data Science Student</div>
                             </div>
+                            
+                            <div class="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-primary/50"></div>
+                            <div class="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-primary/50"></div>
+                            <div class="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-primary/50"></div>
                         </div>
                     </div>
                 </div>
@@ -505,7 +547,7 @@
             </div>
         </section>
  
-        <!-- SECTION 2: MANIFESTO -->
+        <!-- SECTION 2: ABOUT / MANIFESTO -->
         <section id="manifesto" class="items-start">
             <div class="max-w-7xl mx-auto w-full gs-reveal">
                 <div class="flex items-center space-x-4 mb-8">
@@ -527,18 +569,21 @@
                         <p class="text-gray-400 font-light leading-relaxed text-lg">
                             Currently at <strong class="text-white">IIT Jodhpur</strong> pursuing a BS in Applied AI & Data Science. I believe true engineering lies at the intersection of deep mathematics and pristine, deployment-ready software.
                         </p>
+                        <p class="text-xl leading-relaxed text-gray-300 font-light">
+                            I enjoy building practical AI-powered applications. My interests include Machine Learning, Android Development, Data Science, and Full-Stack Web Development.
+                        </p>
                         
                         <div class="terminal mt-10 pop-out-subtle interactive-3d hover-target">
                             <div class="terminal-header">
-                                <div class="terminal-dots flex space-x-1.5"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span><span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span><span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span></div>
+                                <div class="terminal-dots"><span class="bg-red-500"></span><span class="bg-yellow-500"></span><span class="bg-green-500"></span></div>
                                 <span class="ml-4 text-[10px] font-mono text-gray-400">core_philosophy.sh</span>
                             </div>
                             <div class="p-6 font-mono text-xs text-gray-300 leading-loose">
                                 <span class="text-primary">~ $</span> echo $APPROACH<br>
-                                <span class="text-accent">&gt; 1. Ingest Data Patterns</span><br>
-                                <span class="text-accent">&gt; 2. Architect Neural Topology</span><br>
-                                <span class="text-accent">&gt; 3. Optimize Hyperparameters</span><br>
-                                <span class="text-accent">&gt; 4. Deploy Scalable API</span><br>
+                                <span class="text-accent">> 1. Ingest Data Patterns</span><br>
+                                <span class="text-accent">> 2. Architect Neural Topology</span><br>
+                                <span class="text-accent">> 3. Optimize Hyperparameters</span><br>
+                                <span class="text-accent">> 4. Deploy Scalable API</span><br>
                                 <span class="text-primary">~ $</span> <span class="animate-pulse">_</span>
                             </div>
                         </div>
@@ -555,6 +600,11 @@
                             <div class="font-display font-bold text-2xl md:text-3xl text-white pop-out drop-shadow-md">Deep Learning<br>& NLP</div>
                             <p class="text-xs text-gray-400 mt-4 pop-out font-light">Transformer architectures and large language models.</p>
                         </div>
+                        <div class="glass-3d p-8 interactive-3d hover-target flex flex-col justify-center sm:col-span-2 border-t-2 border-t-accent">
+                            <div class="text-[10px] font-mono tracking-widest text-accent uppercase mb-3 pop-out"><i class="fa-solid fa-server mr-2"></i>Engineering Mindset</div>
+                            <div class="font-display font-bold text-2xl text-white pop-out">Production First</div>
+                            <p class="text-sm text-gray-400 mt-4 pop-out font-light">I don't just train models in Jupyter notebooks. I containerize, deploy, and monitor them using industry-standard MLOps practices.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -569,7 +619,9 @@
                             <div class="h-[1px] w-12 bg-primary"></div>
                             <span class="text-[10px] font-mono tracking-widest text-primary uppercase block">Education</span>
                         </div>
-                        <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter mt-5">IIT Jodhpur</h2>
+                        <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter mt-5">
+                            IIT Jodhpur
+                        </h2>
                         <p class="mt-8 text-gray-400 font-light leading-relaxed text-lg">
                             Currently pursuing a BS in Applied AI & Data Science with a strong focus on Machine Learning, Artificial Intelligence, Statistics, Programming, and Data Analytics.
                         </p>
@@ -595,7 +647,7 @@
             </div>
         </section> 
  
-        <!-- SECTION 3: JOURNEY -->
+        <!-- SECTION 3: TIMELINE -->
         <section id="journey" class="py-40">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="mb-24 gs-reveal">
@@ -604,11 +656,13 @@
                         <span class="text-[10px] font-mono tracking-widest text-secondary uppercase block">02. Chronology</span>
                     </div>
                     <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">The Data Pipeline.</h2>
+                    <p class="text-gray-400 mt-6 max-w-2xl font-light text-lg">A systematic progression through rigorous academic environments, building the mathematical and algorithmic foundation required for advanced AI research.</p>
                 </div>
                 
                 <div class="relative space-y-16 before:absolute before:inset-0 before:ml-6 md:before:ml-1/2 before:-translate-x-px md:before:translate-x-[-50%] before:h-full before:w-[2px] before:bg-gradient-to-b before:from-transparent before:via-white/20 before:to-transparent">
+                    <!-- Entry 1 -->
                     <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-primary text-primary shadow-neon-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-primary text-primary shadow-neon-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-primary group-hover:text-darkBg">
                             <i class="fa-solid fa-microchip"></i>
                         </div>
                         <div class="w-[calc(100%-5rem)] md:w-[calc(50%-4rem)] glass-3d p-10 hover-target interactive-3d border-t-4 border-primary">
@@ -616,7 +670,60 @@
                                 <div class="inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-md text-[10px] font-mono text-primary uppercase tracking-widest mb-4">2025 — Present</div>
                                 <h3 class="font-display text-3xl md:text-4xl font-bold text-white mb-2">IIT Jodhpur</h3>
                                 <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-6">BS in Applied AI & Data Science</h4>
-                                <p class="text-gray-400 font-light leading-relaxed text-sm">Focusing on deep learning architectures, scalable data pipelines, MLOps, and statistical algorithms.</p>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm">Focusing entirely on deep learning architectures, scalable data pipelines, automated machine learning (MLOps), and advanced statistical algorithms.</p>
+                                <div class="mt-6 pt-6 border-t border-white/10">
+                                    <div class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-3">Core Modules</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-300 border border-white/10">AI</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-300 border border-white/10">Data Structures</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-300 border border-white/10">ML</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Entry 2 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-secondary text-secondary shadow-neon-secondary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-secondary group-hover:text-darkBg">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="w-[calc(100%-5rem)] md:w-[calc(50%-4rem)] glass-3d p-10 hover-target interactive-3d border-t-4 border-secondary">
+                            <div class="pop-out">
+                                <div class="inline-block px-3 py-1 bg-secondary/10 border border-secondary/30 rounded-md text-[10px] font-mono text-secondary uppercase tracking-widest mb-4">2024 — 2025</div>
+                                <h3 class="font-display text-3xl font-bold text-white mb-2">ALLEN Sikar / S.G.R.</h3>
+                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-6">12th Grade — Sikar, Rajasthan</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm">JEE Preparation and 12th board diagnostics execution. Intensive quantitative problem solving.</p>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Entry 3 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-accent text-accent shadow-[0_0_20px_rgba(74,222,128,0.5)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-accent group-hover:text-darkBg">
+                            <i class="fa-solid fa-square-root-variable"></i>
+                        </div>
+                        <div class="w-[calc(100%-5rem)] md:w-[calc(50%-4rem)] glass-3d p-10 hover-target interactive-3d border-t-4 border-accent">
+                            <div class="pop-out">
+                                <div class="inline-block px-3 py-1 bg-accent/10 border border-accent/30 rounded-md text-[10px] font-mono text-accent uppercase tracking-widest mb-4">2023 — 2024</div>
+                                <h3 class="font-display text-3xl font-bold text-white mb-2">JNV Sandhuan</h3>
+                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-6">11th Grade — Punjab</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm">11th standard systematic progression under residential system criteria.</p>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Entry 4 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gs-reveal">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-darkBg border-2 border-gray-500 text-gray-500 shadow-glass shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-125 group-hover:bg-gray-500 group-hover:text-darkBg">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-4rem)] glass-3d p-10 hover-target interactive-3d border-t-4 border-gray-600">
+                            <div class="pop-out">
+                                <div class="inline-block px-3 py-1 bg-gray-500/10 border border-gray-500/30 rounded-md text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">2018 — 2023</div>
+                                <h3 class="font-display text-3xl font-bold text-white mb-2">JNV Kikarwala Roopa</h3>
+                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest mb-6">6th to 10th Grade — Punjab</h4>
+                                <p class="text-gray-400 font-light leading-relaxed text-sm">6th - 10th standard foundational reasoning modules execution.</p>
                             </div>
                         </div>
                     </div>
@@ -624,7 +731,7 @@
             </div>
         </section>
  
-        <!-- SECTION 4: STACK -->
+        <!-- SECTION 4: CAPABILITIES / TECH STACK -->
         <section id="stack" class="py-40">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="mb-24 gs-reveal flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8">
@@ -635,9 +742,14 @@
                         </div>
                         <h2 class="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">Technology Stack.</h2>
                     </div>
+                    <p class="text-gray-500 font-mono text-xs max-w-sm mt-6 md:mt-0 text-right hidden md:block">
+                        // CORE_LIBRARIES_LOADED<br>
+                        // DEPENDENCIES_RESOLVED
+                    </p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 gs-reveal">
+                    <!-- Core Logic -->
                     <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-primary">
                         <div class="pop-out pointer-events-none flex flex-col h-full">
                             <div class="h-24 flex items-center justify-center">
@@ -647,9 +759,13 @@
                             <p class="text-sm font-light text-gray-400 mb-8 flex-grow">Advanced algorithmic optimization, data structuring, and backend scripting.</p>
                             <div class="flex flex-wrap justify-center gap-2 mt-auto">
                                 <span class="bg-primary/10 border border-primary/30 text-primary px-3 py-1 rounded text-xs font-mono">Python</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">Java</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">Kotlin</span>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Machine Learning -->
                     <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-secondary">
                         <div class="pop-out pointer-events-none flex flex-col h-full">
                             <div class="h-24 flex items-center justify-center">
@@ -660,6 +776,39 @@
                             <div class="flex flex-wrap justify-center gap-2 mt-auto">
                                 <span class="bg-secondary/10 border border-secondary/30 text-secondary px-3 py-1 rounded text-xs font-mono">PyTorch</span>
                                 <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">TensorFlow</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">Scikit-learn</span>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Data Science -->
+                    <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-accent">
+                        <div class="pop-out pointer-events-none flex flex-col h-full">
+                            <div class="h-24 flex items-center justify-center">
+                                <i class="fa-solid fa-chart-network text-6xl text-accent group-hover:scale-125 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(74,222,128,0.5)]"></i>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white mb-4 mt-6">Data Science</h3>
+                            <p class="text-sm font-light text-gray-400 mb-8 flex-grow">Data parsing, feature engineering, and high-dimensional statistical modeling.</p>
+                            <div class="flex flex-wrap justify-center gap-2 mt-auto">
+                                <span class="bg-accent/10 border border-accent/30 text-accent px-3 py-1 rounded text-xs font-mono">Pandas</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">NumPy</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">Matplotlib</span>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- NLP & Generative AI -->
+                    <div class="glass-3d p-10 hover-target text-center interactive-3d group border-t-4 border-white/50">
+                        <div class="pop-out pointer-events-none flex flex-col h-full">
+                            <div class="h-24 flex items-center justify-center">
+                                <i class="fa-solid fa-language text-6xl text-white group-hover:scale-125 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]"></i>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-white mb-4 mt-6">NLP & Gen AI</h3>
+                            <p class="text-sm font-light text-gray-400 mb-8 flex-grow">Integrating Large Language Models, semantic parsing, and RAG architectures.</p>
+                            <div class="flex flex-wrap justify-center gap-2 mt-auto">
+                                <span class="bg-white/20 border border-white/40 text-white px-3 py-1 rounded text-xs font-mono">LangChain</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">Gemini API</span>
+                                <span class="bg-white/5 border border-white/10 text-gray-300 px-3 py-1 rounded text-xs font-mono">HuggingFace</span>
                             </div>
                         </div>
                     </div>
@@ -667,7 +816,37 @@
             </div>
         </section>
  
-        <!-- SECTION 5: ENGINEERED SYSTEMS (WITH FILTER SWITCHER & MODALS) -->
+        <!-- SECTION 4B: STATS STRIP -->
+        <section class="py-24">
+            <div class="max-w-7xl mx-auto w-full grid md:grid-cols-4 gap-6 gs-reveal">
+                <div class="glass-3d p-8 text-center interactive-3d hover-target">
+                    <div class="pop-out">
+                        <h2 class="text-5xl font-bold text-primary font-display">8.75</h2>
+                        <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Current CGPA</p>
+                    </div>
+                </div>
+                <div class="glass-3d p-8 text-center interactive-3d hover-target">
+                    <div class="pop-out">
+                        <h2 class="text-5xl font-bold text-primary font-display">5+</h2>
+                        <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Projects</p>
+                    </div>
+                </div>
+                <div class="glass-3d p-8 text-center interactive-3d hover-target">
+                    <div class="pop-out">
+                        <h2 class="text-5xl font-bold text-primary font-display">10+</h2>
+                        <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Technologies</p>
+                    </div>
+                </div>
+                <div class="glass-3d p-8 text-center interactive-3d hover-target">
+                    <div class="pop-out">
+                        <h2 class="text-5xl font-bold text-primary font-display">2025</h2>
+                        <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Started AI Journey</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- SECTION 5: ENGINEERED SYSTEMS (FILTERING & MODALS UPGRADE) -->
         <section id="systems" class="items-start pt-20 pb-40">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="mb-12 gs-reveal">
@@ -696,6 +875,8 @@
                 </div>
                 
                 <div class="space-y-16" id="projects-container">
+                    
+                    <!-- Flagship Project (AI Resume Analyzer) -->
                     <div class="project-item project-trigger cursor-pointer grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group" data-category="ai" data-project="resume-analyzer">
                         <div class="lg:col-span-7 order-2 lg:order-1 glass-3d p-10 md:p-14 interactive-3d border-l-4 border-primary">
                             <div class="pop-out">
@@ -721,7 +902,9 @@
                         </div>
                     </div>
  
+                    <!-- Minor Projects Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 gs-reveal">
+                        <!-- Project 2 (Curatly) -->
                         <div class="project-item project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-secondary" data-category="android" data-project="curatly">
                             <div class="pop-out h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
@@ -730,7 +913,7 @@
                                 </div>
                                 <h4 class="font-display font-bold text-3xl text-white mb-4">Curatly</h4>
                                 <p class="text-base font-light text-gray-400 mb-8 leading-relaxed flex-grow">
-                                    A robust content curation Android application designed to intelligently structure web data fields neatly into custom cloud databases.
+                                    A robust content curation Android application designed to intelligently structure web data fields neatly into responsive cloud databases.
                                 </p>
                                 <div class="flex flex-wrap gap-2 text-[10px] font-mono text-gray-300 mt-auto pt-6 border-t border-white/10">
                                     <span class="border border-white/20 bg-white/5 px-3 py-1.5 rounded-md text-secondary">Java</span>
@@ -739,6 +922,7 @@
                             </div>
                         </div>
                         
+                        <!-- Project 3 (Analytics) -->
                         <div class="project-item project-trigger cursor-pointer glass-3d p-10 rounded-[2rem] hover-target flex flex-col justify-between interactive-3d group border-t-2 border-emerald-400" data-category="data" data-project="analytics-engine">
                             <div class="pop-out h-full flex flex-col">
                                 <div class="flex justify-between items-start mb-8">
@@ -760,12 +944,15 @@
             </div>
         </section>
  
-        <!-- SECTION 5B: GALLERY -->
+        <!-- SECTION 5B: SYSTEM GALLERY -->
         <section id="gallery" class="py-0">
             <div class="max-w-7xl mx-auto w-full px-[5%] pt-40">
                 <div class="text-center mb-16 gs-reveal">
                     <span class="text-[10px] font-mono tracking-widest text-primary uppercase block mb-4">Portfolio</span>
                     <h2 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tighter">System Gallery.</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto mt-6 font-light text-lg">
+                        Projects, UI designs, application demos and development journey — scroll to fly through.
+                    </p>
                 </div>
             </div>
 
@@ -783,7 +970,24 @@
                             </div>
                         </div>
                     </article>
+                    
                     <article class="gallery-card hover-target" data-index="1">
+                        <div class="gallery-card-glow"></div>
+                        <div class="gallery-card-inner">
+                            <div class="gallery-card-media">
+                                <video autoplay loop muted playsinline>
+                                    <source src="assets/videos/demo.mp4" type="video/mp4">
+                                    <source src="https://assets.mixkit.co/videos/preview/mixkit-code-running-on-a-computer-screen-animated-pattern-35025-large.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="gallery-card-body">
+                                <h3 class="font-display text-2xl font-bold text-white">Live Analytics Preview</h3>
+                                <p class="text-sm text-gray-400 font-light mb-5 leading-relaxed">A behind-the-scenes look at real-time processing pipelines.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="gallery-card hover-target" data-index="2">
                         <div class="gallery-card-glow"></div>
                         <div class="gallery-card-inner">
                             <div class="gallery-card-media">
@@ -795,31 +999,121 @@
                             </div>
                         </div>
                     </article>
+
+                    <article class="gallery-card hover-target" data-index="3">
+                        <div class="gallery-card-glow"></div>
+                        <div class="gallery-card-inner">
+                            <div class="gallery-card-media">
+                                <img src="assets/gallery/project3.webp" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'" loading="lazy" decoding="async" alt="Data Analytics Engine preview">
+                            </div>
+                            <div class="gallery-card-body">
+                                <h3 class="font-display text-2xl font-bold text-white">Data Analytics Engine</h3>
+                                <p class="text-sm text-gray-400 font-light mb-5 leading-relaxed">Python pipeline ingesting datasets and producing diagnostic telemetry.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto w-full px-[5%] mt-10">
+                <div class="gallery-progress-track">
+                    <div id="gallery-progress-fill" class="gallery-progress-fill"></div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-gray-500 uppercase tracking-widest mt-3 max-w-[420px] mx-auto">
+                    <span>Scroll</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-arrow-right"></i>Fly through projects</span>
                 </div>
             </div>
         </section>
  
-        <!-- SECTION 6: RESEARCH -->
+        <!-- SECTION 6: GITHUB & RESEARCH -->
         <section id="research" class="py-40">
             <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 gs-reveal">
-                <div class="lg:col-span-12 glass-3d p-10 md:p-12 rounded-[2rem] interactive-3d hover-target bg-gradient-to-b from-darkBg to-primary/5 border border-primary/20">
+                <!-- Open Source Terminal -->
+                <div class="lg:col-span-7 glass-3d p-10 md:p-12 rounded-[2rem] interactive-3d hover-target bg-gradient-to-b from-darkBg to-primary/5 border border-primary/20">
                     <div class="pop-out">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="text-[10px] font-mono tracking-widest text-primary uppercase bg-primary/10 px-3 py-1 rounded border border-primary/30">Deployment Matrix</div>
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-gray-600"></div>
+                                <div class="w-3 h-3 rounded-full bg-gray-600"></div>
+                                <div class="w-3 h-3 rounded-full bg-primary animate-pulse"></div>
+                            </div>
+                        </div>
+                        
                         <h3 class="font-display text-4xl md:text-5xl font-bold text-white flex items-center mb-6">
-                            <i class="devicon-github-original mr-4"></i> Open Source Matrix
+                            <i class="devicon-github-original mr-4"></i> Open Source
                         </h3>
                         <p class="text-gray-400 font-light text-lg mb-10 leading-relaxed">
-                            Active open-source contributions, research logs, and code deployments.
+                            Active open-source contributions, research logs, and version control mastery. My GitHub is the public ledger of my daily coding, data engineering, and deployment habits.
                         </p>
-                        <div class="flex flex-wrap gap-4">
+                        
+                        <!-- Heatmap Simulation -->
+                        <div class="mb-10 border border-white/10 rounded-xl p-4 bg-black/50">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-mono text-gray-500">parasbishnoi029 / contributions</span>
+                                <span class="text-xs font-mono text-green-400">1,240 commits this year</span>
+                            </div>
+                            <div class="flex gap-1 overflow-x-hidden">
+                                <script>
+                                    document.write(Array.from({length: 120}).map(() => {
+                                        const val = Math.random();
+                                        let cls = 'bg-white/5'; 
+                                        if(val > 0.90) cls = 'bg-[#39d353]';      
+                                        else if(val > 0.70) cls = 'bg-[#26a641]'; 
+                                        else if(val > 0.50) cls = 'bg-[#006d32]'; 
+                                        else if(val > 0.30) cls = 'bg-[#0e4429]'; 
+                                        return `<div class="w-3 h-3 md:w-4 md:h-4 rounded-sm shrink-0 ${cls} transition-colors duration-300 hover:bg-white cursor-pointer"></div>`;
+                                    }).join(''));
+                                </script>
+                            </div>
+                        </div>
+ 
+                        <div class="flex flex-wrap gap-4 mt-6">
                             <a href="https://github.com/parasbishnoi029" target="_blank" class="px-8 py-4 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-full hover:bg-primary transition-colors inline-flex items-center hover-target">
                                 <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Follow @parasbishnoi029
                             </a>
                         </div>
                     </div>
                 </div>
+ 
+                <!-- Academic Research & Activities -->
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="h-[1px] w-12 bg-white/50"></div>
+                        <span class="text-[10px] font-mono tracking-widest text-gray-400 uppercase block">05. Activities</span>
+                    </div>
+                    <h3 class="font-display text-4xl font-bold text-white mb-10">Beyond the Code</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="glass-3d p-6 rounded-2xl flex items-start hover-target interactive-3d group">
+                            <div class="pop-out flex items-start w-full">
+                                <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mr-5 shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
+                                    <i class="fa-solid fa-flask text-xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white mb-1">Academic Research</h4>
+                                    <p class="text-xs text-gray-400 font-light leading-relaxed">Engaging deeply with IIT Jodhpur curriculum data science projects, focusing on statistical modeling optimizations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-3d p-6 rounded-2xl flex items-start hover-target interactive-3d group">
+                            <div class="pop-out flex items-start w-full">
+                                <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mr-5 shrink-0 group-hover:bg-secondary/20 group-hover:border-secondary/50 transition-colors">
+                                    <i class="fa-solid fa-pen-nib text-xl text-secondary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white mb-1">Technical Writing</h4>
+                                    <p class="text-xs text-gray-400 font-light leading-relaxed">Documenting machine learning roadblocks, architectural decisions, and MLOps strategies for future reference.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-
+ 
         <!-- SECTION 7: AWARDS & CERTIFICATIONS -->
         <section id="achievements" class="py-20">
             <div class="max-w-7xl mx-auto w-full">
@@ -850,7 +1144,7 @@
                             <span class="text-[10px] font-mono text-secondary uppercase tracking-widest border-t border-white/10 pt-4 block w-full">Verified Credential</span>
                         </div>
                     </div>
-
+ 
                     <div class="glass-3d p-8 rounded-3xl hover-target interactive-3d flex flex-col items-center text-center">
                         <div class="pop-out">
                             <div class="w-20 h-20 rounded-full bg-darkBg border-2 border-emerald-400 flex items-center justify-center mb-6 mx-auto shadow-[0_0_20px_rgba(52,211,153,0.5)]">
@@ -865,10 +1159,15 @@
             </div>
         </section>
  
-        <!-- SECTION 8: CONTACT -->
+        <!-- SECTION 8: CONTACT TERMINAL -->
         <section id="contact" class="justify-center items-center py-40 min-h-[120vh]">
             <div class="glass-3d p-8 md:p-20 text-center max-w-5xl w-full gs-reveal border-t border-primary interactive-3d hover-target shadow-[0_0_80px_rgba(0,242,254,0.15)] relative overflow-hidden">
-                <div class="pop-out relative z-20">
+                
+                <div class="orbital-ring w-[100%] h-[150%] absolute border border-primary/20 animate-spin-slow rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                <div class="orbital-ring w-[120%] h-[120%] absolute border border-secondary/20 animate-spin-reverse rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-darkBg pointer-events-none z-0"></div>
+
+                <div class="pop-out relative z-10">
                     <div class="inline-flex items-center space-x-2 bg-darkBg border border-primary/50 px-5 py-2 rounded-full text-[10px] font-mono tracking-widest text-primary uppercase mb-8 shadow-neon-primary">
                         <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                         <span>Connection Port Open</span>
@@ -876,7 +1175,7 @@
 
                     <h2 class="font-display text-5xl md:text-8xl font-bold text-white mb-8 tracking-tighter">Initialize Link.</h2>
                     <p class="text-lg md:text-xl font-light text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
-                        Currently available for <strong class="text-white">machine learning internships</strong>, open-source collaborations, and data science research assignments.
+                        Currently available for <strong class="text-white">machine learning internships</strong>, open-source collaborations, and data science research assignments. Let's architect the future together.
                     </p>
 
                     <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-12">
@@ -887,11 +1186,18 @@
                             <i class="devicon-linkedin-plain mr-3 text-lg"></i>LinkedIn
                         </a>
                     </div>
+
+                    <div class="pt-8 border-t border-white/10 w-full max-w-md mx-auto">
+                        <a href="resume.pdf" download class="relative z-10 inline-flex items-center justify-center space-x-3 text-xs font-mono tracking-widest uppercase font-bold text-gray-400 hover:text-primary transition-colors group">
+                            <span class="group-hover:tracking-[0.3em] transition-all duration-300">Download Resume.pdf</span>
+                            <i class="fa-solid fa-download group-hover:translate-y-1 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
  
-        <!-- FOOTER (ALL 5 SOCIAL ACCOUNTS COMPLETELY UNCHANGED) -->
+        <!-- FOOTER -->
         <footer class="py-12 text-center relative z-10 border-t border-white/10 bg-darkBg">
             <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="font-display font-bold text-xl tracking-tighter text-white">
@@ -914,8 +1220,15 @@
         </footer>
     </main>
  
-    <!-- SCRIPT ENGINE -->
+    <!-- ========================================== -->
+    <!-- LOGIC: UI & MULTIPLE 3D ANIMATIONS         -->
+    <!-- ========================================== -->
     <script>
+        /**
+         * PARASFOLIO SUPREME CORE LOGIC
+         * Handles Command Palette, ParasBot, Native SFX, Matrix Background, and Core Three.js/GSAP Engines.
+         */
+
         // --- 0. AUDIO SYNTHESIZER (WEB AUDIO API) ---
         let sfxEnabled = true;
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -923,6 +1236,7 @@
         function playSound(freq, type = 'sine', duration = 0.08) {
             if (!sfxEnabled) return;
             try {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = type;
@@ -1053,7 +1367,7 @@
         function toggleCmdModal(open) {
             if (open) {
                 cmdModal.classList.remove('hidden-cmd');
-                cmdInput.focus();
+                setTimeout(() => cmdInput.focus(), 100);
             } else {
                 cmdModal.classList.add('hidden-cmd');
             }
