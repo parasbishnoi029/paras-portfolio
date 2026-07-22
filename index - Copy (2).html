@@ -1,6 +1,6 @@
 <!-- 
   PARASFOLIO 
-  Immersive 3D SPA Portfolio for Applied AI & Data Science .
+  Immersive 3D SPA Portfolio for Applied AI & Data Science.
   Features: Deep CSS 3D, WebGL Particle Flight, Holographic Avatar.
   Future-Proofed: Includes expansion templates and modular architecture.
   Assets integrated: Profile.jpg, base layout from index.html.
@@ -10,13 +10,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="keywords" content="Parasfolio, Paras Bishnoi,AI and Data Science Student, IIT Jodhpur, AI, Paras,Data Science, Machine Learning, Android, Kotlin, Portfolio">
+    <meta name="keywords" content="Parasfolio, Paras Bishnoi, AI and Data Science Student, IIT Jodhpur, AI, Paras, Data Science, Machine Learning, Android, Kotlin, Portfolio">
     <meta name="author" content="Paras Bishnoi">
     <meta property="og:title" content="Parasfolio | Paras Bishnoi">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parasbishnoi029.github.io/parasfolio/">
-    <meta name="description" content="Paras - Applied AI & Data Science . Immersive 3D Portfolio.">
-    <title>PARASFOLIO | Applied AI & Data Science </title>
+    <meta name="description" content="Paras - Applied AI & Data Science Student at IIT Jodhpur. Immersive 3D Portfolio.">
+    <title>Paras Bishnoi - Applied AI & Data Science Portfolio</title>
     
     <!-- ========================================== -->
     <!-- FONTS & ICONS                              -->
@@ -44,7 +44,10 @@
             },
             "sameAs": [
             "https://github.com/parasbishnoi029",
-            "https://linkedin.com/in/paras029"
+            "https://linkedin.com/in/paras029",
+            "https://www.instagram.com/parasbishnoi.03/",
+            "https://www.facebook.com/paras.bishnoi.29",
+            "https://x.com/parasbishnoi03"
             ],
             "description": "Applied AI & Data Science student at IIT Jodhpur specializing in deep learning, MLOps, and scalable data architectures."
         }
@@ -309,8 +312,7 @@
             transition: width 0.3s ease;
         }
         .nav-link:hover::after { width: 100%; }
-        /* Universal responsive hero title — takes over from Tailwind's raw vw classes,
-           which could still render oversized/undersized on unusual phone widths. */
+        
         .hero-title {
             font-size: clamp(2.75rem, 9vw, 7rem) !important;
         }
@@ -424,181 +426,138 @@
             background: linear-gradient(90deg, #00F2FE, #9D4EDD);
             box-shadow: 0 0 12px rgba(0,242,254,0.6);
         }
-        /* Update these in your existing <style> block */
-         #gallery-track {
-             display: flex;
-             align-items: center;
-             gap: 2rem; /* Reduced gap for smaller screens */
-             will-change: transform;
-             padding: 4rem 4vw;
-        }
 
         @media (max-width: 768px) {
-           .gallery-card {
-                width: 85vw; /* Make cards take up most of the screen */
+            .gallery-card {
+                width: 85vw;
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
             }
-            .gallery-media { height: 40vh; } /* Taller media on mobile */
-            }
+            .gallery-media { height: 40vh; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .gallery-card, .gallery-card-media img, .gallery-card-media video, .gallery-card-body {
                 transition: none !important;
             }
         }
-      /* ===========================
-   MOBILE OPTIMIZATION
-=========================== */
 
-      @media (max-width:768px){
-
-           body{
-               cursor:auto;
-              overflow-x:hidden;
+        /* Mobile Optimization */
+        @media (max-width:768px){
+            body {
+                cursor: auto;
+                overflow-x: hidden;
             }
-
-/* Disable custom cursor */
-          .cursor-dot,
-          .cursor-ring{
-            display:none!important;
-          } 
-
-/* Reduce blur */
-         .glass-3d{
-            backdrop-filter:blur(8px);
-            -webkit-backdrop-filter:blur(8px);
-          }
-
-/* Hero: font-size handled by universal .hero-title rule near top of stylesheet */
-
-/* Avatar */
-          #hero-avatar{
-             max-width:320px;
-          }
-
-/* Gallery */
-         .gallery-card{
-              width:95vw;
-              margin:0!important;
-          }
-
-          #gallery-track{
-              gap:1rem;
-              padding:2rem;
-           }
-
-/* Timeline */
-          #journey .group{
-             flex-direction:column!important;
-          }
-
+            .cursor-dot, .cursor-ring {
+                display: none !important;
+            } 
+            .glass-3d {
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+            #hero-avatar {
+                max-width: 320px;
+            }
+            .gallery-card {
+                width: 95vw;
+                margin: 0 !important;
+            }
+            #gallery-track {
+                gap: 1rem;
+                padding: 2rem;
+            }
+            #journey .group {
+                flex-direction: column !important;
+            }
         }
 
-/* ===========================
-   MOBILE SLIDE-OUT MENU
-=========================== */
+        /* Mobile Slide-Out Menu */
+        .mobile-menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 55;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .mobile-menu-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100dvh;
+            width: min(80vw, 360px);
+            background: rgba(8,8,12,0.98);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            z-index: 65;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 2rem 2.5rem;
+        }
+        .mobile-nav-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #fff;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateX(24px);
+            transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s ease;
+        }
+        .mobile-menu.open .mobile-nav-link {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .mobile-nav-link:hover, .mobile-nav-link:active {
+            color: #00F2FE;
+        }
+        .mobile-nav-resume {
+            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 9999px;
+            text-align: center;
+        }
+        body.menu-open {
+            overflow: hidden;
+        }
 
-.mobile-menu-backdrop{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(4px);
-    -webkit-backdrop-filter:blur(4px);
-    z-index:55;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity 0.35s ease;
-}
+        .mobile-menu-links .mobile-nav-link:nth-child(1){ transition-delay:0.05s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(2){ transition-delay:0.09s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(3){ transition-delay:0.13s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(4){ transition-delay:0.17s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(5){ transition-delay:0.21s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(6){ transition-delay:0.25s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(7){ transition-delay:0.29s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(8){ transition-delay:0.33s; }
+        .mobile-menu-links .mobile-nav-link:nth-child(9){ transition-delay:0.37s; }
 
-.mobile-menu-backdrop.open{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.mobile-menu{
-    position:fixed;
-    top:0;
-    right:0;
-    height:100dvh;
-    width:min(80vw,360px);
-    background:rgba(8,8,12,0.98);
-    border-left:1px solid rgba(255,255,255,0.1);
-    z-index:65;
-    transform:translateX(100%);
-    transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    overflow-y:auto;
-}
-
-.mobile-menu.open{
-    transform:translateX(0);
-}
-
-.mobile-menu-links{
-    display:flex;
-    flex-direction:column;
-    gap:0.5rem;
-    padding:2rem 2.5rem;
-}
-
-.mobile-nav-link{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:1.35rem;
-    font-weight:600;
-    letter-spacing:0.02em;
-    color:#fff;
-    padding:0.85rem 0;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-    text-transform:uppercase;
-    opacity:0;
-    transform:translateX(24px);
-    transition:opacity 0.4s ease,transform 0.4s ease,color 0.2s ease;
-}
-
-.mobile-menu.open .mobile-nav-link{
-    opacity:1;
-    transform:translateX(0);
-}
-
-.mobile-nav-link:hover,
-.mobile-nav-link:active{
-    color:#00F2FE;
-}
-
-.mobile-nav-resume{
-    margin-top:1rem;
-    border:1px solid rgba(255,255,255,0.2);
-    border-radius:9999px;
-    text-align:center;
-    border-bottom:1px solid rgba(255,255,255,0.2);
-}
-
-body.menu-open{
-    overflow:hidden;
-}
-
-/* Stagger the link reveal */
-.mobile-menu-links .mobile-nav-link:nth-child(1){ transition-delay:0.05s; }
-.mobile-menu-links .mobile-nav-link:nth-child(2){ transition-delay:0.09s; }
-.mobile-menu-links .mobile-nav-link:nth-child(3){ transition-delay:0.13s; }
-.mobile-menu-links .mobile-nav-link:nth-child(4){ transition-delay:0.17s; }
-.mobile-menu-links .mobile-nav-link:nth-child(5){ transition-delay:0.21s; }
-.mobile-menu-links .mobile-nav-link:nth-child(6){ transition-delay:0.25s; }
-.mobile-menu-links .mobile-nav-link:nth-child(7){ transition-delay:0.29s; }
-.mobile-menu-links .mobile-nav-link:nth-child(8){ transition-delay:0.33s; }
-.mobile-menu-links .mobile-nav-link:nth-child(9){ transition-delay:0.37s; }
-
-/* Disable hover on phones */
-      @media (hover:none){
-
-          .glass-3d:hover{
-            transform:none;
-            box-shadow:none;
-           }
-
-      }
+        @media (hover:none){
+            .glass-3d:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-primary/20">
@@ -663,7 +622,7 @@ body.menu-open{
     </nav>
 
     <!-- ========================================== -->
-    <!-- MOBILE SLIDE-OUT MENU (DRAWER)              -->
+    <!-- MOBILE SLIDE-OUT MENU (DRAWER)             -->
     <!-- ========================================== -->
     <div id="mobile-menu" class="mobile-menu lg:hidden" aria-hidden="true">
         <div class="mobile-menu-links">
@@ -726,7 +685,6 @@ body.menu-open{
                 
                 <!-- Right Side 3D Avatar Area -->
                 <div class="lg:col-span-5 relative w-full h-[500px] flex justify-center items-center perspective-1200 hidden lg:flex">
-                    <!-- The 3D Avatar Card using Profile.jpg[cite: 1] -->
                     <div id="hero-avatar" class="relative w-full max-w-sm aspect-[3/4] rounded-[2rem] glass-3d p-2 interactive-3d hover-target z-20 shadow-glass-hover">
                         <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative pop-out">
                             <img src="Profile.jpg" onerror="this.src='https://kommodo.ai/i/q60CtUmf3KtyG1A4Gzq5'" alt="Paras 3D Avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
@@ -837,7 +795,6 @@ body.menu-open{
         <section id="education" class="py-40">
             <div class="max-w-7xl mx-auto w-full">
                 <div class="grid lg:grid-cols-2 gap-14 items-center gs-reveal">
- 
                     <div>
                         <div class="flex items-center space-x-4 mb-4">
                             <div class="h-[1px] w-12 bg-primary"></div>
@@ -869,14 +826,8 @@ body.menu-open{
                     </div>
  
                     <div class="glass-3d overflow-hidden rounded-3xl interactive-3d hover-target">
-                        <img
-                            src="assets/iit-campus.webp"
-                            onerror="this.src='https://iitj.ac.in/PageImages/Gallery/08-2025/Slider-638899029792478951.png'"
-                            loading="lazy" decoding="async"
-                            alt="IIT Jodhpur Campus"
-                            class="w-full h-[550px] object-cover">
+                        <img src="assets/iit-campus.webp" onerror="this.src='https://iitj.ac.in/PageImages/Gallery/08-2025/Slider-638899029792478951.png'" loading="lazy" decoding="async" alt="IIT Jodhpur Campus" class="w-full h-[550px] object-cover">
                     </div>
- 
                 </div>
             </div>
         </section> 
@@ -1094,35 +1045,30 @@ body.menu-open{
         <!-- ========================================== -->
         <section class="py-24">
             <div class="max-w-7xl mx-auto w-full grid md:grid-cols-4 gap-6 gs-reveal">
- 
                 <div class="glass-3d p-8 text-center interactive-3d hover-target">
                     <div class="pop-out">
                         <h2 class="text-5xl font-bold text-primary font-display">8.75</h2>
                         <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Current CGPA</p>
                     </div>
                 </div>
- 
                 <div class="glass-3d p-8 text-center interactive-3d hover-target">
                     <div class="pop-out">
                         <h2 class="text-5xl font-bold text-primary font-display">5+</h2>
                         <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Projects</p>
                     </div>
                 </div>
- 
                 <div class="glass-3d p-8 text-center interactive-3d hover-target">
                     <div class="pop-out">
                         <h2 class="text-5xl font-bold text-primary font-display">10+</h2>
                         <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Technologies</p>
                     </div>
                 </div>
- 
                 <div class="glass-3d p-8 text-center interactive-3d hover-target">
                     <div class="pop-out">
                         <h2 class="text-5xl font-bold text-primary font-display">2025</h2>
                         <p class="mt-4 text-gray-400 text-sm uppercase tracking-widest font-mono">Started AI Journey</p>
                     </div>
                 </div>
- 
             </div>
         </section>
  
@@ -1144,7 +1090,6 @@ body.menu-open{
                 </div>
                 
                 <div class="space-y-32">
-                    
                     <!-- Flagship Project (AI Resume Analyzer) -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center gs-reveal hover-target group">
                         <!-- Content Side -->
@@ -1269,9 +1214,7 @@ body.menu-open{
                         <div class="gallery-card-glow"></div>
                         <div class="gallery-card-inner">
                             <div class="gallery-card-media">
-                                <img src="assets/gallery/resume.webp"
-                                    onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" decoding="async" alt="AI Resume Analyzer preview">
+                                <img src="assets/gallery/resume.webp" onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop'" loading="lazy" decoding="async" alt="AI Resume Analyzer preview">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1328,9 +1271,7 @@ body.menu-open{
                         <div class="gallery-card-glow"></div>
                         <div class="gallery-card-inner">
                             <div class="gallery-card-media">
-                                <img src="assets/gallery/project2.webp"
-                                    onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" decoding="async" alt="Curatly preview">
+                                <img src="assets/gallery/project2.webp" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop'" loading="lazy" decoding="async" alt="Curatly preview">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1354,9 +1295,7 @@ body.menu-open{
                         <div class="gallery-card-glow"></div>
                         <div class="gallery-card-inner">
                             <div class="gallery-card-media">
-                                <img src="assets/gallery/project3.webp"
-                                    onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" decoding="async" alt="Data Analytics Engine preview">
+                                <img src="assets/gallery/project3.webp" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'" loading="lazy" decoding="async" alt="Data Analytics Engine preview">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1380,9 +1319,7 @@ body.menu-open{
                         <div class="gallery-card-glow"></div>
                         <div class="gallery-card-inner">
                             <div class="gallery-card-media">
-                                <img src="assets/gallery/workspace.webp"
-                                    onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop'"
-                                    loading="lazy" decoding="async" alt="Development workspace">
+                                <img src="assets/gallery/workspace.webp" onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop'" loading="lazy" decoding="async" alt="Development workspace">
                             </div>
                             <div class="gallery-card-body">
                                 <div class="flex items-center justify-between mb-3">
@@ -1615,36 +1552,36 @@ body.menu-open{
         <!-- SECTION 8: CONTACT TERMINAL                -->
         <!-- ========================================== -->
         <section id="contact" class="justify-center items-center py-40 min-h-[120vh]">
-            <div class="glass-3d p-12 md:p-24 text-center max-w-5xl w-full gs-reveal border-t border-primary interactive-3d hover-target shadow-[0_0_80px_rgba(0,242,254,0.15)] relative overflow-hidden">
+            <div class="glass-3d p-8 md:p-20 text-center max-w-5xl w-full gs-reveal border-t border-primary interactive-3d hover-target shadow-[0_0_80px_rgba(0,242,254,0.15)] relative overflow-hidden">
                 
                 <!-- Rotating Orbital Background Elements (Pure CSS) -->
                 <div class="orbital-ring w-[100%] h-[150%] absolute border border-primary/20 animate-spin-slow rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                 <div class="orbital-ring w-[120%] h-[120%] absolute border border-secondary/20 animate-spin-reverse rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                 <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-darkBg pointer-events-none z-0"></div>
- 
+
                 <div class="pop-out relative z-10">
                     <div class="inline-flex items-center space-x-2 bg-darkBg border border-primary/50 px-5 py-2 rounded-full text-[10px] font-mono tracking-widest text-primary uppercase mb-8 shadow-neon-primary">
                         <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                         <span>Connection Port Open</span>
                     </div>
- 
-                    <h2 class="font-display text-6xl md:text-8xl font-bold text-white mb-8 tracking-tighter">Initialize Link.</h2>
-                    <p class="text-xl font-light text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
+
+                    <h2 class="font-display text-5xl md:text-8xl font-bold text-white mb-8 tracking-tighter">Initialize Link.</h2>
+                    <p class="text-lg md:text-xl font-light text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
                         Currently available for <strong class="text-white">machine learning internships</strong>, open-source collaborations, and data science research assignments. Let's architect the future together.
                     </p>
-                    <p class="text-base font-light text-gray-400 mb-16 max-w-xl mx-auto leading-relaxed">
+                    <p class="text-sm md:text-base font-light text-gray-400 mb-12 max-w-xl mx-auto leading-relaxed">
                         Interested in collaborating on AI, Android, or Full-Stack projects? Let's build something meaningful together.
                     </p>
- 
-                    <div class="flex flex-wrap justify-center gap-6 mb-16">
-                        <a href="mailto:paras.iitj@gmail.com" class="px-10 py-5 bg-white/5 border border-white/20 hover:bg-primary hover:text-black hover:border-primary rounded-full text-sm font-bold text-white transition-all duration-300 flex items-center tracking-widest uppercase shadow-glass-hover">
-                            <i class="fa-solid fa-envelope mr-3 text-xl"></i>Email Me
+
+                    <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-12">
+                        <a href="mailto:paras.iitj@gmail.com" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-primary hover:text-black hover:border-primary rounded-full text-xs md:text-sm font-bold text-white transition-all duration-300 flex items-center tracking-widest uppercase shadow-glass-hover">
+                            <i class="fa-solid fa-envelope mr-3 text-lg"></i>Email Me
                         </a>
-                        <a href="https://linkedin.com/in/paras029" target="_blank" class="px-10 py-5 bg-white/5 border border-white/20 hover:bg-[#0077b5] hover:border-[#0077b5] rounded-full text-sm font-bold text-white transition-all duration-300 flex items-center tracking-widest uppercase shadow-glass-hover">
-                            <i class="devicon-linkedin-plain mr-3 text-xl"></i>LinkedIn
+                        <a href="https://linkedin.com/in/paras029" target="_blank" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-[#0077b5] hover:border-[#0077b5] rounded-full text-xs md:text-sm font-bold text-white transition-all duration-300 flex items-center tracking-widest uppercase shadow-glass-hover">
+                            <i class="devicon-linkedin-plain mr-3 text-lg"></i>LinkedIn
                         </a>
                     </div>
- 
+
                     <div class="pt-8 border-t border-white/10 w-full max-w-md mx-auto">
                         <a href="resume.pdf" download class="relative z-10 inline-flex items-center justify-center space-x-3 text-xs font-mono tracking-widest uppercase font-bold text-gray-400 hover:text-primary transition-colors group">
                             <span class="group-hover:tracking-[0.3em] transition-all duration-300">Download Resume.pdf</span>
@@ -1669,9 +1606,12 @@ body.menu-open{
                     <p class="mt-2 text-gray-600">&copy; 2026 Paras. All Systems Nominal.</p>
                 </div>
                 
-                <div class="flex space-x-4">
-                    <a href="https://github.com/parasbishnoi029" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-colors hover-target"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://linkedin.com/in/paras029" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-secondary hover:border-secondary transition-colors hover-target"><i class="fa-brands fa-linkedin-in"></i></a>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a href="https://github.com/parasbishnoi029" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-colors hover-target" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://linkedin.com/in/paras029" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-secondary hover:border-secondary transition-colors hover-target" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/parasbishnoi.03/" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-pink-500 hover:border-pink-500 transition-colors hover-target" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/paras.bishnoi.29" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:border-blue-500 transition-colors hover-target" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://x.com/parasbishnoi03" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors hover-target" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
         </footer>
@@ -1731,26 +1671,32 @@ body.menu-open{
         const cursorRing = document.querySelector('.cursor-ring');
         
         window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = `${e.clientX}px`; 
-            cursorDot.style.top = `${e.clientY}px`;
-            cursorRing.animate({ 
-                left: `${e.clientX}px`, 
-                top: `${e.clientY}px` 
-            }, { duration: 100, fill: "forwards" });
+            if (cursorDot && cursorRing) {
+                cursorDot.style.left = `${e.clientX}px`; 
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorRing.animate({ 
+                    left: `${e.clientX}px`, 
+                    top: `${e.clientY}px` 
+                }, { duration: 100, fill: "forwards" });
+            }
         });
         
         document.querySelectorAll('a, button, .hover-target').forEach(el => {
             el.addEventListener('mouseenter', () => { 
-                cursorRing.style.width = '60px'; 
-                cursorRing.style.height = '60px'; 
-                cursorRing.style.backgroundColor = 'rgba(0,242,254,0.1)'; 
-                cursorRing.style.borderColor = 'rgba(0,242,254,1)';
+                if (cursorRing) {
+                    cursorRing.style.width = '60px'; 
+                    cursorRing.style.height = '60px'; 
+                    cursorRing.style.backgroundColor = 'rgba(0,242,254,0.1)'; 
+                    cursorRing.style.borderColor = 'rgba(0,242,254,1)';
+                }
             });
             el.addEventListener('mouseleave', () => { 
-                cursorRing.style.width = '40px'; 
-                cursorRing.style.height = '40px'; 
-                cursorRing.style.backgroundColor = 'transparent'; 
-                cursorRing.style.borderColor = 'rgba(0,242,254,0.6)';
+                if (cursorRing) {
+                    cursorRing.style.width = '40px'; 
+                    cursorRing.style.height = '40px'; 
+                    cursorRing.style.backgroundColor = 'transparent'; 
+                    cursorRing.style.borderColor = 'rgba(0,242,254,0.6)';
+                }
             });
         });
  
@@ -1773,7 +1719,7 @@ body.menu-open{
             });
         });
 
-        // --- 2B. GALLERY CARD 3D TILT (separate from .interactive-3d so hover scale/opacity stack cleanly) ---
+        // --- 2B. GALLERY CARD 3D TILT ---
         document.querySelectorAll('.gallery-card-inner').forEach(el => {
             el.addEventListener('mousemove', (e) => {
                 const rect = el.getBoundingClientRect();
@@ -1788,8 +1734,7 @@ body.menu-open{
             });
         });
  
-        // --- 3. ADVANCED THREE.JS WEBGL ARCHITECTURE ---
-        // Disabled on mobile/small screens to save battery, CPU and avoid jank.
+        // --- 3. THREE.JS WEBGL ARCHITECTURE ---
         const isMobileDevice = window.innerWidth < 768;
         let canvas, scene, camera, renderer, terrain, dust, avatar3DGroup, coreMesh, outerHaloMesh;
 
@@ -1797,90 +1742,84 @@ body.menu-open{
             const wc = document.getElementById('webgl-canvas');
             if (wc) wc.style.display = 'none';
         } else {
-        canvas = document.getElementById('webgl-canvas');
-        scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x030305, 0.012);
- 
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 30); 
- 
-        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
- 
-        // LIGHTING
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); 
-        scene.add(ambientLight);
-        
-        const pointLight1 = new THREE.PointLight(0x00F2FE, 6, 100); 
-        pointLight1.position.set(10, 10, 10); 
-        scene.add(pointLight1);
-        
-        const pointLight2 = new THREE.PointLight(0x9D4EDD, 6, 100); 
-        pointLight2.position.set(-10, -10, 10); 
-        scene.add(pointLight2);
- 
-        // --- 3A. THE DIGITAL TERRAIN (FLOOR) ---
-        const terrainGeo = new THREE.PlaneGeometry(200, 300, 50, 75);
-        const pos = terrainGeo.attributes.position;
-        for (let i = 0; i < pos.count; i++) {
-            const z = Math.sin(pos.getX(i) * 0.1) * Math.cos(pos.getY(i) * 0.1) * 4;
-            pos.setZ(i, z);
-        }
-        terrainGeo.computeVertexNormals();
-        const terrainMat = new THREE.MeshStandardMaterial({ 
-            color: 0x00F2FE, 
-            wireframe: true, 
-            transparent: true, 
-            opacity: 0.08 
-        });
-        terrain = new THREE.Mesh(terrainGeo, terrainMat);
-        terrain.rotation.x = -Math.PI / 2;
-        terrain.position.y = -20;
-        terrain.position.z = -50;
-        scene.add(terrain);
- 
-        // --- 3B. BACKGROUND PARTICLES (DEEP TUNNEL) ---
-        const pGeo = new THREE.BufferGeometry();
-        const pCount = 4000;
-        const pPos = new Float32Array(pCount * 3);
-        for(let i = 0; i < pCount * 3; i+=3) {
-            pPos[i] = (Math.random() - 0.5) * 200;       
-            pPos[i+1] = (Math.random() - 0.5) * 200;     
-            pPos[i+2] = (Math.random() - 0.5) * 300 - 50; 
-        }
-        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const pMat = new THREE.PointsMaterial({ 
-            size: 0.05, 
-            color: 0xffffff, 
-            transparent: true, 
-            opacity: 0.3 
-        });
-        dust = new THREE.Points(pGeo, pMat);
-        scene.add(dust);
+            canvas = document.getElementById('webgl-canvas');
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x030305, 0.012);
+     
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 30); 
+     
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+     
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); 
+            scene.add(ambientLight);
+            
+            const pointLight1 = new THREE.PointLight(0x00F2FE, 6, 100); 
+            pointLight1.position.set(10, 10, 10); 
+            scene.add(pointLight1);
+            
+            const pointLight2 = new THREE.PointLight(0x9D4EDD, 6, 100); 
+            pointLight2.position.set(-10, -10, 10); 
+            scene.add(pointLight2);
+     
+            const terrainGeo = new THREE.PlaneGeometry(200, 300, 50, 75);
+            const pos = terrainGeo.attributes.position;
+            for (let i = 0; i < pos.count; i++) {
+                const z = Math.sin(pos.getX(i) * 0.1) * Math.cos(pos.getY(i) * 0.1) * 4;
+                pos.setZ(i, z);
+            }
+            terrainGeo.computeVertexNormals();
+            const terrainMat = new THREE.MeshStandardMaterial({ 
+                color: 0x00F2FE, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.08 
+            });
+            terrain = new THREE.Mesh(terrainGeo, terrainMat);
+            terrain.rotation.x = -Math.PI / 2;
+            terrain.position.y = -20;
+            terrain.position.z = -50;
+            scene.add(terrain);
+     
+            const pGeo = new THREE.BufferGeometry();
+            const pCount = 4000;
+            const pPos = new Float32Array(pCount * 3);
+            for(let i = 0; i < pCount * 3; i+=3) {
+                pPos[i] = (Math.random() - 0.5) * 200;       
+                pPos[i+1] = (Math.random() - 0.5) * 200;     
+                pPos[i+2] = (Math.random() - 0.5) * 300 - 50; 
+            }
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            const pMat = new THREE.PointsMaterial({ 
+                size: 0.05, 
+                color: 0xffffff, 
+                transparent: true, 
+                opacity: 0.3 
+            });
+            dust = new THREE.Points(pGeo, pMat);
+            scene.add(dust);
 
-        // --- 3C. THE 3D HOLOGRAPHIC AVATAR BACKGROUND CORE ---
-        avatar3DGroup = new THREE.Group();
-        const coreGeo = new THREE.IcosahedronGeometry(4, 2);
-        const coreMat = new THREE.MeshStandardMaterial({ color: 0x00F2FE, wireframe: true, transparent: true, opacity: 0.6 });
-        coreMesh = new THREE.Mesh(coreGeo, coreMat);
-        
-        const outerHaloGeo = new THREE.IcosahedronGeometry(5.5, 3);
-        const outerHaloMat = new THREE.PointsMaterial({ size: 0.08, color: 0x9D4EDD, transparent: true, opacity: 0.4 });
-        outerHaloMesh = new THREE.Points(outerHaloGeo, outerHaloMat);
-        
-        avatar3DGroup.add(coreMesh);
-        avatar3DGroup.add(outerHaloMesh);
-        avatar3DGroup.position.set(12, 0, -10); // Placed deep behind the vertical card spot
-        scene.add(avatar3DGroup);
-        } // end desktop-only Three.js setup
+            avatar3DGroup = new THREE.Group();
+            const coreGeo = new THREE.IcosahedronGeometry(4, 2);
+            const coreMat = new THREE.MeshStandardMaterial({ color: 0x00F2FE, wireframe: true, transparent: true, opacity: 0.6 });
+            coreMesh = new THREE.Mesh(coreGeo, coreMat);
+            
+            const outerHaloGeo = new THREE.IcosahedronGeometry(5.5, 3);
+            const outerHaloMat = new THREE.PointsMaterial({ size: 0.08, color: 0x9D4EDD, transparent: true, opacity: 0.4 });
+            outerHaloMesh = new THREE.Points(outerHaloGeo, outerHaloMat);
+            
+            avatar3DGroup.add(coreMesh);
+            avatar3DGroup.add(outerHaloMesh);
+            avatar3DGroup.position.set(12, 0, -10);
+            scene.add(avatar3DGroup);
+        }
  
         // --- 4. PRELOADER & INITIAL GSAP ENTRANCE ANIMATIONS ---
         gsap.registerPlugin(ScrollTrigger);
         if (isMobileDevice) {
-            // Skip heavy scroll recalculations from Three.js resizes on mobile
             ScrollTrigger.config({ ignoreMobileResize: true });
-            // Shorter, snappier animations on mobile so scroll reveals don't feel laggy
             gsap.defaults({ duration: 0.4 });
         }
         
@@ -1920,7 +1859,6 @@ body.menu-open{
                     }
                 });
 
-                // --- GALLERY: PINNED HORIZONTAL SCROLL SETUP ---
                 initGalleryScroll();
             }});
         });
@@ -1953,7 +1891,6 @@ body.menu-open{
                 }
             });
 
-            // Scale & fade each card as it nears the viewport center
             cards.forEach((card) => {
                 gsap.fromTo(card,
                     { scale: 0.85, opacity: 0.5 },
@@ -1977,28 +1914,28 @@ body.menu-open{
  
         // --- 5. SCROLL-DRIVEN 3D CAMERA FLIGHT ---
         if (!isMobileDevice) {
-        gsap.to(camera.position, {
-            z: -150, 
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#scroll-container",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1.5 
-            }
-        });
- 
-        gsap.to(dust.rotation, {
-            z: Math.PI / 4,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#scroll-container",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 2
-            }
-        });
-        } // end desktop-only scroll-driven camera/dust tweens
+            gsap.to(camera.position, {
+                z: -150, 
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#scroll-container",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.5 
+                }
+            });
+     
+            gsap.to(dust.rotation, {
+                z: Math.PI / 4,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#scroll-container",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 2
+                }
+            });
+        }
  
         // --- 6. MOUSE PARALLAX TRACKING LOGIC ---
         let mouseX = 0, mouseY = 0;
@@ -2018,34 +1955,33 @@ body.menu-open{
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
  
-        // --- 7. GLOBAL RENDER LOOP (desktop only) ---
+        // --- 7. GLOBAL RENDER LOOP ---
         if (!isMobileDevice) {
-        const clock = new THREE.Clock();
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            const t = clock.getElapsedTime();
- 
-            terrain.position.z = (t * 5) % 20 - 50;
-            dust.rotation.y = t * 0.02;
+            const clock = new THREE.Clock();
             
-            // Spin background abstract core avatar
-            coreMesh.rotation.x = t * 0.4;
-            coreMesh.rotation.y = t * 0.5;
-            outerHaloMesh.rotation.z = -t * 0.15;
- 
-            targetX = mouseX * 0.005;
-            targetY = mouseY * 0.005;
-            camera.position.x += (targetX - camera.position.x) * 0.05;
-            camera.position.y += (-targetY - camera.position.y) * 0.05;
-            
-            camera.lookAt(camera.position.x, camera.position.y, camera.position.z - 50);
- 
-            renderer.render(scene, camera);
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+     
+                terrain.position.z = (t * 5) % 20 - 50;
+                dust.rotation.y = t * 0.02;
+                
+                coreMesh.rotation.x = t * 0.4;
+                coreMesh.rotation.y = t * 0.5;
+                outerHaloMesh.rotation.z = -t * 0.15;
+     
+                targetX = mouseX * 0.005;
+                targetY = mouseY * 0.005;
+                camera.position.x += (targetX - camera.position.x) * 0.05;
+                camera.position.y += (-targetY - camera.position.y) * 0.05;
+                
+                camera.lookAt(camera.position.x, camera.position.y, camera.position.z - 50);
+     
+                renderer.render(scene, camera);
+            }
+     
+            animate(); 
         }
- 
-        animate(); 
-        } // end desktop-only render loop
     </script>
 </body>
 </html>
